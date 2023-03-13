@@ -133,143 +133,63 @@ describe("Blogs", function () {
     expect(readerContractFlowRate.flowRate).to.equal("0");
   });
 
-  //   it("Access Control #2 - Should allow you to add account to account list", async function () {
-  //     await moneyRouter.allowAccount(account1.address);
+  it("An account mints multiple tokens and the tokens owned by account is listed", async function () {
+    await blogs
+      .connect(creator)
+      .safeMint(
+        creator.address,
+        "https://blog.nft.storage/posts/2021-11-30-hello-world-nft-storage/",
+        { value: ONE_MATIC }
+      );
 
-  //     expect(await moneyRouter.accountList(account1.address)).to.equal(true);
-  //   });
-  //   it("Access Control #3 - Should allow for removing accounts from whitelist", async function () {
-  //     await moneyRouter.removeAccount(account1.address);
+    await blogs
+      .connect(creator)
+      .safeMint(
+        creator.address,
+        "https://blog.nft.storage/posts/2021-11-30-hello-world-nft-storage/",
+        { value: ONE_MATIC }
+      );
 
-  //     expect(await moneyRouter.accountList(account1.address)).to.equal(false);
-  //   });
-  //   it("Access Control #4 - Should allow for change in ownership", async function () {
-  //     await moneyRouter.changeOwner(account1.address);
+    await blogs
+      .connect(creator)
+      .safeMint(
+        creator.address,
+        "https://blog.nft.storage/posts/2021-11-30-hello-world-nft-storage/",
+        { value: ONE_MATIC }
+      );
 
-  //     expect(await moneyRouter.owner(), account1.address);
-  //   });
-  //   it("Contract Receives Funds #1 - lump sum is transferred to contract", async function () {
-  //     //transfer ownership back to real owner...
-  //     await moneyRouter.connect(account1).changeOwner(owner.address);
+    await blogs
+      .connect(reader1)
+      .safeMint(
+        reader1.address,
+        "https://blog.nft.storage/posts/2021-11-30-hello-world-nft-storage/",
+        { value: ONE_MATIC }
+      );
 
-  //     await daix
-  //       .approve({
-  //         receiver: moneyRouter.address,
-  //         amount: ethers.utils.parseEther("100"),
-  //       })
-  //       .exec(owner);
+    await blogs
+      .connect(reader1)
+      .safeMint(
+        reader1.address,
+        "https://blog.nft.storage/posts/2021-11-30-hello-world-nft-storage/",
+        { value: ONE_MATIC }
+      );
 
-  //     await moneyRouter.sendLumpSumToContract(
-  //       daix.address,
-  //       ethers.utils.parseEther("100")
-  //     );
+    const creatorBal = await blogs.balanceOf(creator.address);
+    const readerBal = await blogs.balanceOf(reader1.address);
 
-  //     let contractDAIxBalance = await daix.balanceOf({
-  //       account: moneyRouter.address,
-  //       providerOrSigner: owner,
-  //     });
-  //     expect(contractDAIxBalance, ethers.utils.parseEther("100"));
-  //   });
-  //   it("Contract Receives Funds #2 - a flow is created into the contract", async function () {
-  //     let authorizeContractOperation = daix.updateFlowOperatorPermissions({
-  //       flowOperator: moneyRouter.address,
-  //       permissions: "7", //full control
-  //       flowRateAllowance: "1000000000000000", // ~2500 per month
-  //     });
-  //     await authorizeContractOperation.exec(owner);
+    const creatorOwned = [];
 
-  //     await moneyRouter.createFlowIntoContract(daix.address, "100000000000000"); //about 250 daix per month
+    for (let i = 0; i < creatorBal; i++) {
+      creatorOwned[i] = await blogs.tokenOfOwnerByIndex(creator.address, i);
+    }
 
-  //     let ownerContractFlowRate = await daix.getFlow({
-  //       sender: owner.address,
-  //       receiver: moneyRouter.address,
-  //       providerOrSigner: owner,
-  //     });
+    const readerOwned = [];
 
-  //     expect(ownerContractFlowRate.flowRate).to.equal("100000000000000");
-  //   });
-  //   it("Contract Recieves Funds #3 - a flow into the contract is updated", async function () {
-  //     await moneyRouter.updateFlowIntoContract(daix.address, "200000000000000"); // about 250 daix per month
+    for (let i = 0; i < readerBal; i++) {
+      readerOwned[i] = await blogs.tokenOfOwnerByIndex(reader1.address, i);
+    }
 
-  //     let ownerContractFlowRate = await daix.getFlow({
-  //       sender: owner.address,
-  //       receiver: moneyRouter.address,
-  //       providerOrSigner: owner,
-  //     });
-
-  //     expect(ownerContractFlowRate.flowRate).to.equal("200000000000000");
-  //   });
-  //   it("Contract Receives Funds #4 - a flow into the contract is deleted", async function () {
-  //     await moneyRouter.deleteFlowIntoContract(daix.address);
-
-  //     let ownerContractFlowRate = await daix.getFlow({
-  //       sender: owner.address,
-  //       receiver: moneyRouter.address,
-  //       providerOrSigner: owner,
-  //     });
-
-  //     expect(ownerContractFlowRate.flowRate).to.equal("0");
-  //   });
-  //   it("Contract sends funds #1 - withdrawing a lump sum from the contract", async function () {
-  //     let contractStartingBalance = await daix.balanceOf({
-  //       account: moneyRouter.address,
-  //       providerOrSigner: owner,
-  //     });
-
-  //     await moneyRouter.withdrawFunds(
-  //       daix.address,
-  //       ethers.utils.parseEther("10")
-  //     );
-
-  //     let contractFinishingBalance = await daix.balanceOf({
-  //       account: moneyRouter.address,
-  //       providerOrSigner: owner,
-  //     });
-
-  //     expect(contractStartingBalance - ethers.utils.parseEther("10")).to.equal(
-  //       Number(contractFinishingBalance)
-  //     );
-  //   });
-
-  // it("Contract sends funds #2 - creating a flow from the contract", async function () {
-  //   await moneyRouter.createFlowFromContract(
-  //     daix.address,
-  //     account1.address,
-  //     "100000000000000"
-  //   ); //about 250 per month
-
-  //   let receiverContractFlowRate = await daix.getFlow({
-  //     sender: moneyRouter.address,
-  //     receiver: account1.address,
-  //     providerOrSigner: owner,
-  //   });
-
-  //   expect(receiverContractFlowRate.flowRate).to.equal("100000000000000");
-  // });
-  //   it("Contract sends funds #3 - updating a flow from the contract", async function () {
-  //     await moneyRouter.updateFlowFromContract(
-  //       daix.address,
-  //       account1.address,
-  //       "200000000000000"
-  //     ); //about 500 per month
-
-  //     let receiverContractFlowRate = await daix.getFlow({
-  //       sender: moneyRouter.address,
-  //       receiver: account1.address,
-  //       providerOrSigner: owner,
-  //     });
-
-  //     expect(receiverContractFlowRate.flowRate).to.equal("200000000000000");
-  //   });
-  //   it("Contract sends funds #4 - deleting a flow from the contract", async function () {
-  //     await moneyRouter.deleteFlowFromContract(daix.address, account1.address); //about 500 per month
-
-  //     let receiverContractFlowRate = await daix.getFlow({
-  //       sender: moneyRouter.address,
-  //       receiver: account1.address,
-  //       providerOrSigner: owner,
-  //     });
-
-  //     expect(receiverContractFlowRate.flowRate).to.equal("0");
-  //   });
+    console.log("Creator Owned : ", creatorOwned);
+    console.log("Reader Owned : ", readerOwned);
+  });
 });
