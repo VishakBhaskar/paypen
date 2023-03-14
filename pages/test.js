@@ -1,24 +1,35 @@
-import { Navbar } from "flowbite-react";
+import Header from "../components/Header";
 
-<Navbar fluid={true} rounded={true}>
-  <Navbar.Brand href="https://flowbite.com/">
-    <img
-      src="https://flowbite.com/docs/images/logo.svg"
-      className="mr-3 h-6 sm:h-9"
-      alt="Flowbite Logo"
-    />
-    <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-      Flowbite
-    </span>
-  </Navbar.Brand>
-  <Navbar.Toggle />
-  <Navbar.Collapse>
-    <Navbar.Link href="/navbars" active={true}>
-      Home
-    </Navbar.Link>
-    <Navbar.Link href="/navbars">About</Navbar.Link>
-    <Navbar.Link href="/navbars">Services</Navbar.Link>
-    <Navbar.Link href="/navbars">Pricing</Navbar.Link>
-    <Navbar.Link href="/navbars">Contact</Navbar.Link>
-  </Navbar.Collapse>
-</Navbar>;
+export default function Home() {
+  return (
+    <body class="bg-gray-900">
+      <Header class="bg-gray-900" />
+      <div class="py-24 bg-gray-900">
+        <div class="text-center bg-gray-900 text-white pt-40 pb-20 px-6 ">
+          <h1 class="text-5xl md:text-6xl xl:text-7xl font-bold tracking-tight mb-12">
+            Join the new wave of publishing <br />
+            <span class="text-blue-600">Make every second count</span>
+          </h1>
+          <a
+            class="inline-block px-7 py-3 mr-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+            data-mdb-ripple="true"
+            data-mdb-ripple-color="light"
+            href="#!"
+            role="button"
+          >
+            Get started
+          </a>
+          <a
+            class="inline-block px-7 py-3 bg-transparent text-blue-600 font-medium text-base leading-snug uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out"
+            data-mdb-ripple="true"
+            data-mdb-ripple-color="light"
+            href="#!"
+            role="button"
+          >
+            Discover
+          </a>
+        </div>
+      </div>
+    </body>
+  );
+}
