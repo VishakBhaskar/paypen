@@ -1,7 +1,6 @@
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Image from "next/image";
-import Statue from "../public/GoldenStatue5.png";
-// import Clock from "../public/clock.svg";
 
 export default function Home() {
   return (
@@ -34,7 +33,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="container my-24 px-6 mx-auto">
+      <div className="container my-24 px-6 pb-5 mx-auto">
         <section className="mb-32 text-white">
           <h2 className="text-3xl font-bold mb-12 text-center">
             Why is it so great?
@@ -198,6 +197,81 @@ export default function Home() {
           </div>
         </section>
       </div>
+
+      <div class="container my-24 px-6 mx-auto">
+        <section class="mb-32 background-radial-gradient">
+          <div
+            className=".background-radial-gradient {
+  background-color: hsl(218, 41%, 15%);
+  background-image: radial-gradient(
+    650px circle at 0% 0%,
+    hsl(218, 41%, 35%) 15%,
+    hsl(218, 41%, 30%) 35%,
+    hsl(218, 41%, 20%) 75%,
+    hsl(218, 41%, 19%) 80%,
+    transparent 100%
+  ),
+  radial-gradient(
+    1250px circle at 100% 100%,
+    hsl(218, 41%, 45%) 15%,
+    hsl(218, 41%, 30%) 35%,
+    hsl(218, 41%, 20%) 75%,
+    hsl(218, 41%, 19%) 80%,
+    transparent 100%
+  );
+}"
+          />
+
+          <div class="px-6 py-12 md:px-12 text-center lg:text-left">
+            <div class="container mx-auto xl:px-32">
+              <div class="grid lg:grid-cols-2 gap-12 flex items-center">
+                <div class="mt-12 lg:mt-0">
+                  <h1 class="color: hsl(218, 81%, 95%); text-4xl md:text-4xl xl:text-4xl font-bold tracking-tight mb-12">
+                    <span className="text-white">
+                      Say goodbye to paywalls and subscriptions
+                    </span>
+                    <br />
+                    <br />
+                    <span className="text-blue-600">
+                      Readers can pay per article and writers can earn based on
+                      reader engagement
+                    </span>
+                  </h1>
+                  <a
+                    class="inline-block px-7 py-3 mr-2 bg-gray-200 text-gray-700 font-medium text-lg leading-snug uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
+                    data-mdb-ripple="true"
+                    data-mdb-ripple-color="light"
+                    href="#!"
+                    role="button"
+                  >
+                    Get started
+                  </a>
+                  <a
+                    class="inline-block px-7 py-3 bg-transparent text-white font-medium text-lg leading-snug uppercase rounded focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    data-mdb-ripple="true"
+                    data-mdb-ripple-color="light"
+                    href="#!"
+                    role="button"
+                  >
+                    Learn more
+                  </a>
+                </div>
+                <div class="mb-12 lg:mb-0">
+                  <Image
+                    src="/goldcoins.png"
+                    className="w-full"
+                    width={400}
+                    height={400}
+                    layout="responsive"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <Footer />
     </div>
   );
 }
