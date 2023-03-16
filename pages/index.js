@@ -16,7 +16,7 @@ export default function Home() {
             className="inline-block px-7 py-3 mr-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             data-mdb-ripple="true"
             data-mdb-ripple-color="light"
-            href="#!"
+            href="/create"
             role="button"
           >
             Get started
@@ -25,7 +25,7 @@ export default function Home() {
             className="inline-block px-7 py-3 bg-transparent text-blue-600 font-medium text-base leading-snug uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out"
             data-mdb-ripple="true"
             data-mdb-ripple-color="light"
-            href="#!"
+            href="/discover"
             role="button"
           >
             Discover
@@ -241,7 +241,7 @@ export default function Home() {
                     className="inline-block px-7 py-3 mr-2 bg-gray-200 text-gray-700 font-medium text-lg leading-snug uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
-                    href="#!"
+                    href="/create"
                     role="button"
                   >
                     Get started
@@ -250,10 +250,10 @@ export default function Home() {
                     className="inline-block px-7 py-3 bg-transparent text-white font-medium text-lg leading-snug uppercase rounded focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
-                    href="#!"
+                    href="/discover"
                     role="button"
                   >
-                    Learn more
+                    Discover
                   </a>
                 </div>
                 <div className="mb-12 lg:mb-0">

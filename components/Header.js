@@ -12,12 +12,12 @@ export default function Header() {
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <a href="https://flowbite.com/" className="flex items-center">
           <img
-            src="https://flowbite.com/docs/images/logo.svg"
+            src="/paypen-logo.png"
             className="h-6 mr-3 sm:h-9"
-            alt="Flowbite Logo"
+            alt="Paypen Logo"
           />
           <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
-            Flowbite
+            Paypen
           </span>
         </a>
         <div className="flex md:order-2">

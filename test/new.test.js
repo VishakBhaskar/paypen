@@ -76,7 +76,7 @@ before(async function () {
 
   let Blogs = await ethers.getContractFactory("Blogs", owner);
 
-  blogs = await Blogs.deploy("Blogs", "BLG", ONE_MATIC);
+  blogs = await Blogs.deploy("PayPen", "PPN", ONE_MATIC);
   await blogs.deployed();
 });
 
