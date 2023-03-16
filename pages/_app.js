@@ -17,12 +17,15 @@ import {
   goerli,
   hardhat,
 } from "wagmi/chains";
-import { alchemyProvider } from "wagmi/providers/alchemy";
+// import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, provider } = configureChains(
-  [mainnet, polygon, polygonMumbai, optimism, arbitrum, goerli, hardhat],
-  [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
+  [mainnet, polygon, polygonMumbai, goerli, hardhat],
+  [
+    // alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+    publicProvider(),
+  ]
 );
 
 const { connectors } = getDefaultWallets({

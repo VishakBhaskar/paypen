@@ -1,7 +1,17 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useState } from "react";
 
 export default function Create() {
+  const [title, setTitle] = useState("");
+  const [story, setStory] = useState("");
+
+  const handleOnSubmit = (event) => {
+    event.preventDefault();
+    console.log("Title  : ", title);
+    console.log("Story  : ", story);
+  };
+
   return (
     <div className="bg-gray-900">
       <Header className="bg-gray-900" />
@@ -20,9 +30,9 @@ export default function Create() {
               <div className="px-4 py-2 bg-white rounded-b-lg dark:bg-gray-800">
                 <textarea
                   id="editor"
-                  // rows="8"
                   className="block w-full px-0 text-3xl text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                   placeholder="The title goes here"
+                  onChange={(e) => setTitle(e.target.value)}
                   required
                 ></textarea>
               </div>
@@ -38,13 +48,24 @@ export default function Create() {
                   rows="20"
                   className="block w-full px-0 text-xl text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400"
                   placeholder="Write your story..."
+                  onChange={(e) => setStory(e.target.value)}
                   required
                 ></textarea>
               </div>
             </div>
-            <button
-              type="submit"
+            <input
+              type="file"
+              name="Asset"
+              placeholder="Select an image..."
               className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+              // onChange={onChange}
+            />
+            <br /> <br />
+            <button
+              // onClick={handleOnSubmit}
+              onClick={(e) => handleOnSubmit(e)}
+              // type="submit"
+              className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-xl px-8 py-3.5 text-center mr-2 mb-2"
             >
               Publish post
             </button>
