@@ -1,69 +1,50 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Mint from "../components/Mint";
+import Uploading from "../components/Uploading";
 import { useState } from "react";
 import { NFTStorage } from "nft.storage";
-import { useContractWrite, usePrepareContractWrite, useSigner } from "wagmi";
-import { hardhat } from "wagmi/chains";
-
-import { paypenAddress } from "../config";
+import { useSigner } from "wagmi";
 
 export default function Create() {
+  const { data: signer } = useSigner();
   const [title, setTitle] = useState("");
   const [story, setStory] = useState("");
-  const { data: signer } = useSigner({
-    chainId: hardhat.id,
-  });
+  const [data, setData] = useState(null);
+  const [status, setStatus] = useState("Upload Image");
 
   const NFT_API_KEY = process.env.NEXT_PUBLIC_NFT_API_KEY;
-  // "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweEIzODhGOUFiYUQ2MEQyNDU1NTkyRDVFQTU3YmUyRjg3OTFGYjI2MGQiLCJpc3MiOiJuZnQtc3RvcmFnZSIsImlhdCI6MTY3OTAyODAyODY2MywibmFtZSI6IlBheXBlbiJ9.uY-9QQdKiGpptvTuZjVrqi_a16ooQT3DH2QwC9AnjOo";
 
   let image;
+  let metadata;
   function onUpload(e) {
     image = e.target.files[0];
   }
   //
-  async function storeExampleNFT(e) {
-    // const image = await getExampleImage();
-    // event.preventDefault();
+
+  async function storeNFT(e) {
     const nft = {
       image, // use image Blob as `image` field
-      name: "Storing the World's Most Valuable Virtual Assets with NFT.Storage",
-      content: "The metaverse is here. Where is it all being stored?",
-      // author: ,
+      name: title,
+      description: story,
     };
 
+    setStatus(Uploading);
     console.log("Storing NFT...");
 
     const client = new NFTStorage({ token: NFT_API_KEY });
-    const metadata = await client.store(nft);
+    metadata = await client.store(nft);
     console.log("Metadate hash : ", metadata);
 
     console.log("NFT data stored!");
+    setStatus("NFT data stored!");
     console.log("Metadata URI: ", metadata.url);
+
+    setStatus("NFT Stored!");
+
+    setData({ metadata, signer });
   }
-  //
-  const { config } = usePrepareContractWrite({
-    address: f_nftaddress,
-    abi: F_NFT.abi,
-    functionName: "mint",
-    args: [quantity, tokenUrl, [name, description]],
-  });
-  //
-  const handleOnSubmit = (event) => {
-    event.preventDefault();
-    console.log("Title  : ", title);
-    console.log("Story  : ", story);
-    console.log("Key : ", NFT_API_KEY);
-  };
 
-  const showSigner = (event) => {
-    event.preventDefault();
-    console.log("Signer  : ", signer._address);
-  };
-
-  //
-
-  //
   return (
     <div className="bg-gray-900">
       <Header className="bg-gray-900" />
@@ -109,18 +90,17 @@ export default function Create() {
               type="file"
               name="Asset"
               placeholder="Select an image..."
-              className="inline-flex items-center px-5 py-2.5 text-sm font-medium text-center text-white bg-blue-700 rounded-lg focus:ring-4 focus:ring-blue-200 dark:focus:ring-blue-900 hover:bg-blue-800"
+              className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-xl px-8 py-3.5 text-center mr-2 mb-2"
               onChange={onUpload}
-            />
-            <br /> <br />
+            />{" "}
             <button
-              // onClick={handleOnSubmit}
-              onClick={(e) => showSigner(e)}
-              // type="submit"
+              onClick={(e) => storeNFT(e)}
               className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-xl px-8 py-3.5 text-center mr-2 mb-2"
             >
-              Publish post
+              {status}
             </button>
+            <br /> <br />
+            <div>{data && <Mint data={data} />}</div>
           </div>
         </section>
       </div>

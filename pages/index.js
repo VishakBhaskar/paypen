@@ -226,7 +226,7 @@ export default function Home() {
             <div className="container mx-auto xl:px-32">
               <div className="grid lg:grid-cols-2 gap-12 flex items-center">
                 <div className="mt-12 lg:mt-0">
-                  <h1 class="color: hsl(218, 81%, 95%); text-4xl md:text-4xl xl:text-4xl font-bold tracking-tight mb-12">
+                  <h1 className="color: hsl(218, 81%, 95%); text-4xl md:text-4xl xl:text-4xl font-bold tracking-tight mb-12">
                     <span className="text-white">
                       Say goodbye to paywalls and subscriptions
                     </span>
