@@ -2,8 +2,10 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { useState } from "react";
 import { NFTStorage } from "nft.storage";
-import { useSigner } from "wagmi";
+import { useContractWrite, usePrepareContractWrite, useSigner } from "wagmi";
 import { hardhat } from "wagmi/chains";
+
+import { paypenAddress } from "../config";
 
 export default function Create() {
   const [title, setTitle] = useState("");
@@ -39,6 +41,13 @@ export default function Create() {
     console.log("NFT data stored!");
     console.log("Metadata URI: ", metadata.url);
   }
+  //
+  const { config } = usePrepareContractWrite({
+    address: f_nftaddress,
+    abi: F_NFT.abi,
+    functionName: "mint",
+    args: [quantity, tokenUrl, [name, description]],
+  });
   //
   const handleOnSubmit = (event) => {
     event.preventDefault();
