@@ -8,15 +8,7 @@ import {
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
 import { configureChains, createClient, WagmiConfig } from "wagmi";
-import {
-  mainnet,
-  polygon,
-  optimism,
-  arbitrum,
-  polygonMumbai,
-  goerli,
-  hardhat,
-} from "wagmi/chains";
+import { mainnet, polygon, polygonMumbai, goerli, hardhat } from "wagmi/chains";
 // import { alchemyProvider } from "wagmi/providers/alchemy";
 import { publicProvider } from "wagmi/providers/public";
 

@@ -27,6 +27,7 @@
     "install": "^0.13.0",
     "lexical": "^0.9.0",
     "next": "13.1.6",
+    "nft.storage": "^7.0.3",
     "quill": "^1.3.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",

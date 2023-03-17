@@ -11,7 +11,7 @@ import {ISuperfluid, ISuperToken} from "@superfluid-finance/ethereum-contracts/c
 
 import {SuperTokenV1Library} from "@superfluid-finance/ethereum-contracts/contracts/apps/SuperTokenV1Library.sol";
 
-contract PayPen is ERC721URIStorage, ERC721Enumerable, Ownable {
+contract Paypen is ERC721URIStorage, ERC721Enumerable, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
