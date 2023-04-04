@@ -1,5 +1,6 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 import { hardhat } from "wagmi/chains";
+import { utils } from "ethers";
 
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
 import { paypenAddress } from "../config";
@@ -10,6 +11,10 @@ export default function Mint(props) {
     address: paypenAddress,
     abi: Paypen.abi,
     functionName: "safeMint",
+    overrides: {
+      from: props.data.signer._address,
+      value: utils.parseEther("1"),
+    },
     args: [props.data.signer._address, props.data.metadata],
     chainId: hardhat.id,
   });
