@@ -1,5 +1,5 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
-import { hardhat } from "wagmi/chains";
+import { hardhat, localhost } from "wagmi/chains";
 import { utils } from "ethers";
 
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
@@ -16,7 +16,7 @@ export default function Mint(props) {
       value: utils.parseEther("1"),
     },
     args: [props.data.signer._address, props.data.metadata],
-    chainId: hardhat.id,
+    chainId: 1337,
   });
 
   const { write, data, error, isLoading, isError, isSuccess } =

@@ -26,7 +26,7 @@ export default function PostsByUser(props) {
     abi: Paypen.abi,
     functionName: "balanceOf",
     args: [props.signer._address],
-    chainId: localhost.id,
+    chainId: 1337,
   });
 
   console.log("Address is : ", props.signer._address);
