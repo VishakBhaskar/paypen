@@ -36,7 +36,7 @@ before(async function () {
 
   // initialize framework
   sf = await Framework.create({
-    chainId: 31337,
+    chainId: 1337,
     provider: owner.provider,
     resolverAddress: contractsFramework.resolver, // (empty)
     protocolReleaseVersion: "test",
@@ -74,7 +74,7 @@ before(async function () {
   await reader1Upgrade.exec(reader1);
   await reader2Upgrade.exec(reader2);
 
-  let Blogs = await ethers.getContractFactory("Blogs", owner);
+  let Blogs = await ethers.getContractFactory("Paypen", owner);
 
   blogs = await Blogs.deploy("PayPen", "PPN", ONE_MATIC);
   await blogs.deployed();
@@ -143,9 +143,9 @@ describe("Blogs", function () {
       );
 
     await blogs
-      .connect(creator)
+      .connect(reader1)
       .safeMint(
-        creator.address,
+        reader1.address,
         "https://blog.nft.storage/posts/2021-11-30-hello-world-nft-storage/",
         { value: ONE_MATIC }
       );
@@ -188,6 +188,9 @@ describe("Blogs", function () {
     for (let i = 0; i < readerBal; i++) {
       readerOwned[i] = await blogs.tokenOfOwnerByIndex(reader1.address, i);
     }
+
+    const someUri = await blogs.tokenURI(1);
+    console.log("URI : ", someUri);
 
     console.log("Creator Owned : ", creatorOwned);
     console.log("Reader Owned : ", readerOwned);

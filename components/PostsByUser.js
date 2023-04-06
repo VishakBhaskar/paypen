@@ -3,6 +3,7 @@ import {
   useContractInfiniteReads,
   useContractRead,
 } from "wagmi";
+import { useState } from "react";
 const { ethers } = require("ethers");
 import { hardhat, localhost } from "wagmi/chains";
 import { useEffect } from "react";
@@ -11,17 +12,18 @@ import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
 import { paypenAddress } from "../config";
 
 export default function PostsByUser(props) {
-  const paypenContractConfig = {
-    address: paypenAddress,
-    abi: Paypen.abi,
-    chainId: hardhat.id,
-  };
+  const [posts, setPosts] = useState([]);
+  // const paypenContractConfig = {
+  //   address: paypenAddress,
+  //   abi: Paypen.abi,
+  //   chainId: hardhat.id,
+  // };
 
-  // useEffect(() => {
-  //   load();
-  // }, []);
+  useEffect(() => {
+    load();
+  }, []);
 
-  const { data, isRefetching, isSuccess, refetch } = useContractRead({
+  const { data } = useContractRead({
     address: paypenAddress,
     abi: Paypen.abi,
     functionName: "balanceOf",
@@ -30,7 +32,49 @@ export default function PostsByUser(props) {
   });
 
   console.log("Address is : ", props.signer._address);
-  console.log("Balance is : ", data.toString());
+  console.log("Balance is : ", parseInt(data));
+
+  // setBalance(parseInt(data));
+
+  // let myPosts = [];
+
+  // fetchPosts();
+
+  async function load() {
+    const paypenContract = new ethers.Contract(
+      paypenAddress,
+      Paypen.abi,
+      props.signer
+    );
+
+    let postIds = [];
+
+    for (let i = 0; i < parseInt(data); i++) {
+      postIds[i] = await paypenContract.tokenOfOwnerByIndex(
+        props.signer._address,
+        i
+      );
+    }
+    const items = await Promise.all(
+      postIds.map(async (i) => {
+        const metadata = await paypenContract.tokenURI(i);
+        // const res = await fetch(metadataUrl);
+        // if (!res.ok) {
+        //   throw new Error(
+        //     `error fetching image metadata: [${res.status}] ${res.statusText}`
+        //   );
+        // }
+        return metadata;
+      })
+    );
+
+    const metadata = await paypenContract.tokenURI(2);
+
+    // setPosts(items);
+
+    console.log("Posts are: ", metadata);
+    //   // const posts = await paypenContract.fetchPosts();
+  }
 
   // async function load() {
   //   for (let i = 0; i < creatorBal; i++) {

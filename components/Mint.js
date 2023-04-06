@@ -15,14 +15,14 @@ export default function Mint(props) {
       from: props.data.signer._address,
       value: utils.parseEther("1"),
     },
-    args: [props.data.signer._address, props.data.metadata],
+    args: [props.data.signer._address, props.data.metadata.url],
     chainId: 1337,
   });
 
   const { write, data, error, isLoading, isError, isSuccess } =
     useContractWrite(config);
 
-  console.log(props.data.metadata);
+  console.log("Metadata URL is : ", props.data.metadata.url);
   console.log(props.data.signer._address);
 
   return (
