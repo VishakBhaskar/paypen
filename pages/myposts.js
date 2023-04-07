@@ -3,7 +3,6 @@ import Footer from "../components/Footer";
 import PostsByUser from "../components/PostsByUser";
 import { useSigner } from "wagmi";
 import { useState } from "react";
-import { useRouter } from "next/router";
 
 export default function MyPosts() {
   const { data: signer } = useSigner();

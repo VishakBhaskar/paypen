@@ -5,6 +5,7 @@ import Uploading from "../components/Uploading";
 import { useState } from "react";
 import { NFTStorage } from "nft.storage";
 import { useSigner } from "wagmi";
+import { Signer } from "ethers";
 
 export default function Create() {
   const { data: signer } = useSigner();
@@ -17,9 +18,11 @@ export default function Create() {
 
   let image;
   let metadata;
+  let currentdate = new Date();
   function onUpload(e) {
     image = e.target.files[0];
   }
+
   //
 
   async function storeNFT(e) {
@@ -27,10 +30,13 @@ export default function Create() {
       image, // use image Blob as `image` field
       name: title,
       description: story,
+      author: signer._address,
+      date: currentdate.getDate(),
     };
 
     setStatus(Uploading);
     console.log("Storing NFT...");
+    console.log("Signer address is : ", signer._address);
 
     const client = new NFTStorage({ token: NFT_API_KEY });
     metadata = await client.store(nft);

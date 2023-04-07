@@ -4,6 +4,8 @@ import {
   useContractRead,
 } from "wagmi";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import Link from "next/link";
 const { ethers } = require("ethers");
 import { hardhat, localhost } from "wagmi/chains";
 import { useEffect } from "react";
@@ -13,6 +15,7 @@ import { paypenAddress } from "../config";
 
 export default function PostsByUser(props) {
   const [posts, setPosts] = useState([]);
+  const router = useRouter();
   // const paypenContractConfig = {
   //   address: paypenAddress,
   //   abi: Paypen.abi,
@@ -90,6 +93,14 @@ export default function PostsByUser(props) {
     //   // const posts = await paypenContract.fetchPosts();
   }
 
+  // async function viewPost(post) {
+
+  //   router.push({
+  //     pathname: `/posts/${post.image.trim().slice(7)}`,
+  //     query: { post: JSON.stringify(post) },
+  //   });
+  // }
+
   return (
     <div className="container my-24 px-6 mx-auto">
       <section className="mb-32 text-white text-center py-20">
@@ -129,14 +140,33 @@ export default function PostsByUser(props) {
                     </small>
                   </p>
                   <p className="mb-4 pb-2 text-black">{post.description}</p>
-                  <a
-                    href="#!"
+                  {/* <button onClick={viewPost(post)}> */}
+
+                  <a>Some text</a>
+                  <div
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
-                    className="inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                    className="content-center inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                   >
-                    Read more
-                  </a>
+                    <Link
+                      href={{
+                        pathname: `/posts/${post.image.trim().slice(29, 79)}`,
+                        query: post, // the data
+                      }}
+                      // >
+                      //   <a
+                      // onClick={() => viewPost(post)}
+                      // href="#!"
+                      // data-mdb-ripple="true"
+                      // data-mdb-ripple-color="light"
+                      // className="content-center inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
+                    >
+                      Read more
+                      {/* </a> */}
+                    </Link>
+
+                    {/* </button> */}
+                  </div>
                 </div>
               </div>
             </div>
