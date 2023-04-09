@@ -13,14 +13,9 @@ import { useEffect } from "react";
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
 import { paypenAddress } from "../config";
 
-export default function PostsByUser(props) {
+export default function AllPosts(props) {
   const [posts, setPosts] = useState([]);
   const router = useRouter();
-  // const paypenContractConfig = {
-  //   address: paypenAddress,
-  //   abi: Paypen.abi,
-  //   chainId: hardhat.id,
-  // };
 
   useEffect(() => {
     load();
@@ -135,8 +130,8 @@ export default function PostsByUser(props) {
                     <small>
                       Published by you
                       {/* <a href="" className="text-gray-900">
-                        {props.signer._address}
-                      </a> */}
+                          {props.signer._address}
+                        </a> */}
                     </small>
                   </p>
                   <p className="mb-4 pb-2 text-black">{post.description}</p>

@@ -17,6 +17,7 @@ import {
   localhost,
 } from "wagmi/chains";
 // import { alchemyProvider } from "wagmi/providers/alchemy";
+// import { SessionProvider } from "next-auth/react";
 import { publicProvider } from "wagmi/providers/public";
 
 const { chains, provider } = configureChains(
@@ -35,6 +36,7 @@ const { connectors } = getDefaultWallets({
 const wagmiClient = createClient({
   autoConnect: true,
   connectors,
+
   provider,
 });
 
