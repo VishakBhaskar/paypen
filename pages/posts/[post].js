@@ -12,18 +12,11 @@ export default function Article() {
         <section className="mb-20 text-white">
           <img
             src={post.image}
-            // src="https://mdbootstrap.com/img/new/slides/198.jpg"
             className="w-full shadow-lg rounded-lg mb-6"
             alt=""
           />
 
           <div className="flex items-center mb-6">
-            {/* <img
-              src="https://mdbootstrap.com/img/Photos/Avatars/img (23).jpg"
-              className="rounded-full mr-2 h-8"
-              alt=""
-              loading="lazy"
-            /> */}
             <div>
               <span>
                 {" "}
