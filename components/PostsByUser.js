@@ -79,6 +79,7 @@ export default function PostsByUser(props) {
           name: metadata.name,
           description: metadata.description,
           image: imageURL,
+          postId: i,
         };
 
         return item;

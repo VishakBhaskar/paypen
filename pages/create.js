@@ -41,7 +41,9 @@ export default function Create() {
     const client = new NFTStorage({ token: NFT_API_KEY });
     metadata = await client.store(nft);
     console.log("Metadate hash : ", metadata);
-
+    //
+    console.log("Signer data : ", signer);
+    //
     console.log("NFT data stored!");
     setStatus("NFT data stored!");
     console.log("Metadata URI: ", metadata.url);
