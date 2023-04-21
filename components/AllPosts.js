@@ -73,6 +73,7 @@ export default function AllPosts(props) {
         let item = {
           name: metadata.name,
           description: metadata.description,
+          author: metadata.author,
           image: imageURL,
           postId: i,
         };
@@ -100,7 +101,7 @@ export default function AllPosts(props) {
   return (
     <div className="container my-24 px-6 mx-auto">
       <section className="mb-32 text-white text-center py-20">
-        <h2 className="text-3xl font-bold mb-12 pb-4 text-center">My Posts</h2>
+        <h2 className="text-3xl font-bold mb-12 pb-4 text-center">All Posts</h2>
         {/* {signer && <PostsByUser signer={signer} />} */}
 
         <div className="grid lg:grid-cols-3 gap-6 xl:gap-x-12">
@@ -129,7 +130,7 @@ export default function AllPosts(props) {
                   </h5>
                   <p className="text-gray-500 mb-4">
                     <small>
-                      Published by you
+                      Published by {post.author}
                       {/* <a href="" className="text-gray-900">
                           {props.signer._address}
                         </a> */}
