@@ -7,6 +7,11 @@ module.exports = {
   defaultNetwork: "hardhat",
   networks: {
     hardhat: {
+      forking: {
+        enabled: true,
+        url: `${process.env.ALCHEMY_URL}`,
+        // url: `https://eth-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      },
       chainId: 1337,
     },
   },
