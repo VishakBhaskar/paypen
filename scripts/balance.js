@@ -56,10 +56,21 @@ async function main() {
     value: ethers.utils.parseEther("50.0"), // Sends exactly 50.0 ether
   });
 
-  await daix.connect(whale).transfer(acc1.address, ONE_TOKEN);
+  let transfer = daix.transfer({
+    receiver: acc1.address,
+    amount: ONE_TOKEN,
+  });
 
-  let newWhaleBal = await daix.balanceOf(WHALE);
-  let newAttackerBal = await daix.balanceOf(acc1.address);
+  await transfer.exec(whale);
+
+  let newWhaleBal = await daix.balanceOf({
+    account: WHALE,
+    providerOrSigner: ethers.provider,
+  });
+  let newAttackerBal = await daix.balanceOf({
+    account: acc1.address,
+    providerOrSigner: ethers.provider,
+  });
 
   console.log(
     "Final DAIx balance of whale : ",
