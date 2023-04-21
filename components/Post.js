@@ -6,16 +6,17 @@ import { useState } from "react";
 const { ethers } = require("ethers");
 import { useEffect } from "react";
 
-const { Framework } = require("@superfluid-finance/sdk-core");
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
-import { paypenAddress, daix } from "../config";
+import { paypenAddress } from "../config";
 
 export default function Post(props) {
   const { data: signer } = useSigner();
   const router = useRouter();
-  const post = router.query;
+  // const post = router.query;
+  let daix;
+  let authorizeContractOperation;
 
-  const [variable, setVariable] = useState(false);
+  const [flow, setFlow] = useState(false);
   const [status, setStatus] = useState("Start Reading");
 
   const paypenContract = new ethers.Contract(
@@ -25,45 +26,59 @@ export default function Post(props) {
   );
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await asyncFunctionToUpdateVariable();
-      setVariable(result);
+    init();
+
+    const fetchFlow = async () => {
+      let flowRate = await daix.getFlow({
+        sender: props.signer._address,
+        receiver: props.post.author,
+        providerOrSigner: props.signer,
+      });
+
+      // const result = await asyncFunctionToUpdateVariable();
+      if (flowRate == "1000000000000000") {
+        setFlow(true);
+      } else {
+        setFlow(flase);
+      }
     };
 
-    fetchData();
+    fetchFlow();
 
-    const interval = setInterval(() => {
-      fetchData();
-    }, 1000);
+    // fetchData();
 
-    return () => clearInterval(interval);
+    // const interval = setInterval(() => {
+    //   fetchData();
+    // }, 1000);
+
+    // return () => clearInterval(interval);
   }, []);
 
-  async function info() {
-    let authorizeContractOperation = daix.updateFlowOperatorPermissions({
+  useEffect(() => {
+    router.reload();
+  }, [flow]);
+
+  async function init() {
+    let sfDeployer = await deployTestFramework();
+    contractsFramework = await sfDeployer.getFramework();
+    sf = await Framework.create({
+      chainId: 1337,
+      provider: owner.provider,
+      resolverAddress: contractsFramework.resolver, // (empty)
+      protocolReleaseVersion: "test",
+    });
+
+    daix = await sf.loadSuperToken("fDAIx");
+
+    authorizeContractOperation = daix.updateFlowOperatorPermissions({
       flowOperator: paypenAddress,
       permissions: "7", //full control
       flowRateAllowance: "10000000000000000", // ~2500 per month
     });
-    await authorizeContractOperation.exec(props.signer);
+    authorizeContractOperation.exec(props.signer);
 
     await paypenContract.connect(props.signer).read(0, daix.address);
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const result = await asyncFunctionToUpdateVariable();
-      setVariable(result);
-    };
-
-    fetchData();
-
-    const interval = setInterval(() => {
-      fetchData();
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <div className="container my-24 px-6 mx-auto">

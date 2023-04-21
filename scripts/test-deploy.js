@@ -6,6 +6,7 @@ const {
   deployTestFramework,
 } = require("@superfluid-finance/ethereum-contracts/dev-scripts/deploy-test-framework");
 const TestToken = require("@superfluid-finance/ethereum-contracts/build/contracts/TestToken.json");
+const SuperTokenMock = require("@superfluid-finance/ethereum-contracts/contracts/mocks/SuperTokenLibraryV1Mock.sol");
 
 async function main() {
   const thousandEther = ethers.utils.parseEther("10000");
@@ -63,7 +64,7 @@ async function main() {
     "./config.js",
     `
     export const paypenAddress = "${paypen.address}"
-    export const daix = "${daix}"
+  
   `
   );
 }
