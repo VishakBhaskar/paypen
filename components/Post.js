@@ -1,7 +1,10 @@
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
+// import Header from "./Header";
+// import Footer from "./Footer";
 import { useRouter } from "next/router";
 import { useSigner } from "wagmi";
+import { useState } from "react";
+const { ethers } = require("ethers");
+import { useEffect } from "react";
 
 const { Framework } = require("@superfluid-finance/sdk-core");
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
