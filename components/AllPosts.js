@@ -1,11 +1,7 @@
-import {
-  paginatedIndexesConfig,
-  useContractInfiniteReads,
-  useContractRead,
-} from "wagmi";
+import { useContractRead } from "wagmi";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import Link from "next/link";
+const { Framework } = require("@superfluid-finance/sdk-core");
 const { ethers } = require("ethers");
 import { hardhat, localhost } from "wagmi/chains";
 import { useEffect } from "react";
@@ -31,12 +27,6 @@ export default function AllPosts(props) {
 
   console.log("Address is : ", props.signer._address);
   console.log("Balance is : ", parseInt(data));
-
-  // setBalance(parseInt(data));
-
-  // let myPosts = [];
-
-  // fetchPosts();
 
   async function load() {
     const paypenContract = new ethers.Contract(
@@ -82,21 +72,10 @@ export default function AllPosts(props) {
       })
     );
 
-    // const metadata = await paypenContract.tokenURI(2);
-
     setPosts(items);
 
     console.log("Posts are: ", items);
-    //   // const posts = await paypenContract.fetchPosts();
   }
-
-  // async function viewPost(post) {
-
-  //   router.push({
-  //     pathname: `/posts/${post.image.trim().slice(7)}`,
-  //     query: { post: JSON.stringify(post) },
-  //   });
-  // }
 
   return (
     <div className="container my-24 px-6 mx-auto">
@@ -139,31 +118,14 @@ export default function AllPosts(props) {
                   <p className="mb-4 pb-2 text-black">{post.description}</p>
                   {/* <button onClick={viewPost(post)}> */}
 
-                  <a>Some text</a>
-                  <div
+                  <button
+                    onClick={() => viewPost(post)}
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
                     className="content-center inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                   >
-                    <Link
-                      href={{
-                        pathname: `/posts/${post.image.trim().slice(29, 79)}`,
-                        query: post, // the data
-                      }}
-                      // >
-                      //   <a
-                      // onClick={() => viewPost(post)}
-                      // href="#!"
-                      // data-mdb-ripple="true"
-                      // data-mdb-ripple-color="light"
-                      // className="content-center inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                    >
-                      Read more
-                      {/* </a> */}
-                    </Link>
-
-                    {/* </button> */}
-                  </div>
+                    Read more
+                  </button>
                 </div>
               </div>
             </div>

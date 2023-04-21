@@ -2,18 +2,23 @@
 // import Footer from "./Footer";
 import { useRouter } from "next/router";
 import { useSigner } from "wagmi";
+import { useProvider } from "wagmi";
 import { useState } from "react";
 const { ethers } = require("ethers");
 import { useEffect } from "react";
 
+const { Framework } = require("@superfluid-finance/sdk-core");
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
 import { paypenAddress } from "../config";
 
 export default function Post(props) {
   const { data: signer } = useSigner();
+  const provider = useProvider();
   const router = useRouter();
   // const post = router.query;
+  const fDAIx = "0xF2d68898557cCb2Cf4C10c3Ef2B034b2a69DAD00";
   let daix;
+  let sf;
   let authorizeContractOperation;
 
   const [flow, setFlow] = useState(false);
@@ -39,7 +44,7 @@ export default function Post(props) {
       if (flowRate == "1000000000000000") {
         setFlow(true);
       } else {
-        setFlow(flase);
+        setFlow(false);
       }
     };
 
@@ -54,31 +59,32 @@ export default function Post(props) {
     // return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    router.reload();
-  }, [flow]);
+  // async function init() {
+  //   sf = await Framework.create({
+  //     provider: provider,
+  //     resolverAddress: "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E",
+  //     networkName: "hardhat",
+  //     dataMode: "WEB3_ONLY",
+  //     protocolReleaseVersion: "v1",
+  //     chainId: 1337,
+  //   });
 
-  async function init() {
-    let sfDeployer = await deployTestFramework();
-    contractsFramework = await sfDeployer.getFramework();
-    sf = await Framework.create({
-      chainId: 1337,
-      provider: owner.provider,
-      resolverAddress: contractsFramework.resolver, // (empty)
-      protocolReleaseVersion: "test",
-    });
+  //   daix = await sf.loadSuperToken(fDAIx);
 
-    daix = await sf.loadSuperToken("fDAIx");
+  //   authorizeContractOperation = daix.updateFlowOperatorPermissions({
+  //     flowOperator: paypenAddress,
+  //     permissions: "7", //full control
+  //     flowRateAllowance: "10000000000000000", // ~2500 per month
+  //   });
 
-    authorizeContractOperation = daix.updateFlowOperatorPermissions({
-      flowOperator: paypenAddress,
-      permissions: "7", //full control
-      flowRateAllowance: "10000000000000000", // ~2500 per month
-    });
-    authorizeContractOperation.exec(props.signer);
+  //   await authorizeContractOperation.exec(props.signer);
 
-    await paypenContract.connect(props.signer).read(0, daix.address);
-  }
+  //   await paypenContract.connect(props.signer).read(0, daix.address);
+  // }
+
+  // useEffect(() => {
+  //   router.reload();
+  // }, [flow]);
 
   return (
     <div className="container my-24 px-6 mx-auto">

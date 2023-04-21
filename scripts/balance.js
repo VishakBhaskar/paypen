@@ -86,36 +86,36 @@ async function main() {
   //
   //
 
-  // const ONE_MATIC = ethers.utils.parseEther("1");
+  const ONE_MATIC = ethers.utils.parseEther("1");
 
-  // const PaypenFactory = await hre.ethers.getContractFactory("Paypen");
-  // const paypen = await PaypenFactory.deploy("PayPen", "PPN", ONE_MATIC);
-  // console.log("Paypen deployed to:", paypen.address);
+  const PaypenFactory = await hre.ethers.getContractFactory("Paypen");
+  const paypen = await PaypenFactory.deploy("PayPen", "PPN", ONE_MATIC);
+  console.log("Paypen deployed to:", paypen.address);
 
-  // await paypen
-  //   .connect(acc2)
-  //   .safeMint(
-  //     acc2.address,
-  //     "https://blog.nft.storage/posts/2021-11-30-hello-world-nft-storage/",
-  //     { value: ONE_MATIC }
-  //   );
+  await paypen
+    .connect(acc2)
+    .safeMint(
+      acc2.address,
+      "https://blog.nft.storage/posts/2021-11-30-hello-world-nft-storage/",
+      { value: ONE_MATIC }
+    );
 
-  // // let authorizeContractOperation = daix.updateFlowOperatorPermissions({
-  // //   flowOperator: paypen.address,
-  // //   permissions: "7", //full control
-  // //   flowRateAllowance: "10000000000000000", // ~2500 per month
-  // // });
-  // // await authorizeContractOperation.exec(acc1);
+  let authorizeContractOperation = daix.updateFlowOperatorPermissions({
+    flowOperator: paypen.address,
+    permissions: "7", //full control
+    flowRateAllowance: "10000000000000000", // ~2500 per month
+  });
+  await authorizeContractOperation.exec(acc1);
   // await daix.connect(acc1).authorizeOperator(paypen.address);
-  // await paypen.connect(acc1).read(0, daix.address);
+  await paypen.connect(acc1).read(0, daix.address);
 
-  // let readerContractFlowRate = await daix.getFlow({
-  //   sender: acc1.address,
-  //   receiver: acc2.address,
-  //   providerOrSigner: acc1,
-  // });
+  let readerContractFlowRate = await daix.getFlow({
+    sender: acc1.address,
+    receiver: acc2.address,
+    providerOrSigner: acc1,
+  });
 
-  // console.log("Reader Flow rate : ", readerContractFlowRate);
+  console.log("Reader Flow rate : ", readerContractFlowRate);
 }
 
 // We recommend this pattern to be able to use async/await everywhere

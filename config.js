@@ -1,4 +1,3 @@
 
-    export const paypenAddress = "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1"
-    export const daix = "[object Object]"
+    export const paypenAddress = "0xEbC044b36782bA7eA8fc7Aa00DDF2919411B96D2"
   

@@ -143,7 +143,6 @@ export default function PostsByUser(props) {
                   <p className="mb-4 pb-2 text-black">{post.description}</p>
                   {/* <button onClick={viewPost(post)}> */}
 
-                  <a>Some text</a>
                   <div
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
