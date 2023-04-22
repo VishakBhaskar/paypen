@@ -23,8 +23,8 @@ export default function AllPosts(props) {
   const { data } = useContractRead({
     address: paypenAddress,
     abi: Paypen.abi,
-    functionName: "balanceOf",
-    args: [props.signer._address],
+    functionName: "totalSupply",
+
     chainId: 1337,
   });
 
@@ -41,10 +41,7 @@ export default function AllPosts(props) {
     let postIds = [];
 
     for (let i = 0; i < parseInt(data); i++) {
-      postIds[i] = await paypenContract.tokenOfOwnerByIndex(
-        props.signer._address,
-        i
-      );
+      postIds[i] = await paypenContract.tokenByIndex(i);
     }
     const items = await Promise.all(
       postIds.map(async (i) => {

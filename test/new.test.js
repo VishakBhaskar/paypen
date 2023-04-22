@@ -195,4 +195,16 @@ describe("Blogs", function () {
     console.log("Creator Owned : ", creatorOwned);
     console.log("Reader Owned : ", readerOwned);
   });
+
+  it("Display all Token Ids", async function () {
+    const totalSupply = await blogs.totalSupply();
+
+    let tokenIds = [];
+
+    for (let i = 0; i < totalSupply; i++) {
+      tokenIds[i] = await blogs.tokenByIndex(i);
+    }
+
+    console.log("Alll tokenIds : ", tokenIds);
+  });
 });
