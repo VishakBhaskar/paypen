@@ -1,9 +1,11 @@
+import Read from "./Read";
 import { useContractRead } from "wagmi";
 import { useState } from "react";
 import { useRouter } from "next/router";
 const { Framework } = require("@superfluid-finance/sdk-core");
 const { ethers } = require("ethers");
 import { hardhat, localhost } from "wagmi/chains";
+// import { useProvider } from "wagmi";
 import { useEffect } from "react";
 
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
@@ -12,6 +14,7 @@ import { paypenAddress } from "../config";
 export default function AllPosts(props) {
   const [posts, setPosts] = useState([]);
   const router = useRouter();
+  // const provider = useProvider();
 
   useEffect(() => {
     load();
@@ -117,15 +120,25 @@ export default function AllPosts(props) {
                   </p>
                   <p className="mb-4 pb-2 text-black">{post.description}</p>
                   {/* <button onClick={viewPost(post)}> */}
-
-                  <button
+                  <div>
+                    {
+                      // provider && (
+                      <Read
+                        post={post}
+                        signer={props.signer}
+                        provider={props.provider}
+                      />
+                      // )
+                    }
+                  </div>
+                  {/* <button
                     onClick={() => viewPost(post)}
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
                     className="content-center inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
                   >
                     Read more
-                  </button>
+                  </button> */}
                 </div>
               </div>
             </div>
