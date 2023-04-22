@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 const { Framework } = require("@superfluid-finance/sdk-core");
-// import { useProvider } from "wagmi";
+const { ethers } = require("ethers");
 import { useEffect } from "react";
 import { useState } from "react";
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
@@ -42,8 +42,10 @@ export default function Read(props) {
         providerOrSigner: props.signer,
       });
 
+      console.log("flow rate ; ", flowRate);
+
       // const result = await asyncFunctionToUpdateVariable();
-      if (flowRate == "1000000000000000") {
+      if (flowRate.flowRate == "1000000000000000") {
         setFlow(true);
       } else {
         setFlow(false);
@@ -61,25 +63,6 @@ export default function Read(props) {
     // return () => clearInterval(interval);
   }, []);
 
-  // async function init() {
-  // sf = await Framework.create({
-  //   provider: provider,
-  //   resolverAddress: "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E",
-  //   networkName: "hardhat",
-  //   dataMode: "WEB3_ONLY",
-  //   protocolReleaseVersion: "v1",
-  //   chainId: 1337,
-  // });
-
-  // daix = await sf.loadSuperToken(fDAIx);
-
-  // authorizeContractOperation = daix.updateFlowOperatorPermissions({
-  //   flowOperator: paypenAddress,
-  //   permissions: "7", //full control
-  //   flowRateAllowance: "10000000000000000", // ~2500 per month
-  // });
-  // }
-
   const view = () => {
     router.push({
       pathname: `/posts/${props.post.image.trim().slice(29, 79)}`,
@@ -88,13 +71,20 @@ export default function Read(props) {
   };
 
   async function viewPost() {
+    const paypenContract = new ethers.Contract(
+      paypenAddress,
+      Paypen.abi,
+      props.signer
+    );
     if (props.post.author == props.signer._address) {
       view();
     } else if (flow) {
       view();
     } else {
       await authorizeContractOperation.exec(props.signer);
-      await paypenContract.connect(props.signer).read(0, daix.address);
+      await paypenContract
+        .connect(props.signer)
+        .read(props.post.postId, daix.address);
       view();
     }
   }

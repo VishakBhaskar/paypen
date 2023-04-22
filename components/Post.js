@@ -49,12 +49,12 @@ export default function Post(props) {
 
       daix = await sf.loadSuperToken(fDAIx);
 
-      authorizeContractOperation = daix.updateFlowOperatorPermissions({
-        flowOperator: paypenAddress,
-        permissions: "7", //full control
-        flowRateAllowance: "10000000000000000", // ~2500 per month
-      });
-
+      // authorizeContractOperation = daix.updateFlowOperatorPermissions({
+      //   flowOperator: paypenAddress,
+      //   permissions: "7", //full control
+      //   flowRateAllowance: "10000000000000000", // ~2500 per month
+      // });
+      console.log("post id: ", props.post.postId);
       let flowRate = await daix.getFlow({
         sender: props.signer._address,
         receiver: props.post.author,
@@ -62,7 +62,7 @@ export default function Post(props) {
       });
 
       // const result = await asyncFunctionToUpdateVariable();
-      if (flowRate == "1000000000000000") {
+      if (flowRate.flowRate == "1000000000000000") {
         setFlow(true);
       } else {
         setFlow(false);
@@ -71,8 +71,6 @@ export default function Post(props) {
 
     fetchFlow();
 
-    // fetchData();
-
     // const interval = setInterval(() => {
     //   fetchData();
     // }, 1000);
@@ -80,72 +78,44 @@ export default function Post(props) {
     // return () => clearInterval(interval);
   }, []);
 
-  // async function init() {
-  //   sf = await Framework.create({
-  //     provider: provider,
-  //     resolverAddress: "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E",
-  //     networkName: "hardhat",
-  //     dataMode: "WEB3_ONLY",
-  //     protocolReleaseVersion: "v1",
-  //     chainId: 1337,
-  //   });
+  const exit = () => {
+    router.push({
+      pathname: `/discover`,
+    });
+  };
 
-  //   daix = await sf.loadSuperToken(fDAIx);
-
-  //   authorizeContractOperation = daix.updateFlowOperatorPermissions({
-  //     flowOperator: paypenAddress,
-  //     permissions: "7", //full control
-  //     flowRateAllowance: "10000000000000000", // ~2500 per month
-  //   });
-
-  //   await authorizeContractOperation.exec(props.signer);
-
-  //   await paypenContract.connect(props.signer).read(0, daix.address);
-  // }
-
-  // useEffect(() => {
-  //   router.reload();
-  // }, [flow]);
+  async function stop() {
+    const paypenContract = new ethers.Contract(
+      paypenAddress,
+      Paypen.abi,
+      props.signer
+    );
+    if (props.post.author == props.signer._address) {
+      exit();
+    } else if (!flow) {
+      exit();
+    } else {
+      await paypenContract
+        .connect(props.signer)
+        .stop(props.post.postId, daix.address);
+      exit();
+    }
+  }
 
   return (
-    // <div className="container my-24 px-6 mx-auto">
-    //   <section className="mb-32 text-gray-800 text-center">
-    //     <div className="px-6 py-12 md:px-12">
-    //       <h2 className="text-5xl my-12 font-bold tracking-tight">
-    //         Are you ready <br />
-    //         <span className="text-blue-600">for an adventure?</span>
-    //       </h2>
-    //       <a
-    //         className="inline-block px-7 py-3 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out mb-2 md:mr-2"
-    //         href="#!"
-    //         role="button"
-    //         data-mdb-ripple="true"
-    //         data-mdb-ripple-color="light"
-    //       >
-    //         Get started
-    //       </a>
-    //       <a
-    //         className="inline-block px-7 py-3 bg-transparent text-blue-600 font-medium text-sm leading-snug uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out mb-2"
-    //         data-mdb-ripple="true"
-    //         data-mdb-ripple-color="primary"
-    //         href="#!"
-    //         role="button"
-    //       >
-    //         Learn more
-    //       </a>
-    //     </div>
-    //   </section>
-    // </div>
-
-    //
-    //
-    //
-    //
-    //
-
     <div className="bg-gray-900">
       <Header className="bg-gray-900" />
-      <div className="container my-8 px-20 py-20 mx-auto">
+
+      <div className="container my-8 px-20 py-20 mx-auto relative">
+        <div className="group fixed bottom-10 right-10 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-danger-600 uppercase leading-normal text-white">
+          <button
+            onClick={() => stop()}
+            className="text-white bg-gradient-to-r from-red-500 to-red-800 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-xl px-8 py-3.5 text-center mr-2 mb-2"
+          >
+            Stop
+          </button>
+        </div>
+
         <section className="mb-20 text-white">
           <img
             src={props.post.image}

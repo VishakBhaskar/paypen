@@ -43,6 +43,9 @@ export default function AllPosts(props) {
     for (let i = 0; i < parseInt(data); i++) {
       postIds[i] = await paypenContract.tokenByIndex(i);
     }
+
+    console.log("Post ids : ", postIds);
+
     const items = await Promise.all(
       postIds.map(async (i) => {
         const metadataUrl = await paypenContract.tokenURI(i);
@@ -65,7 +68,7 @@ export default function AllPosts(props) {
           description: metadata.description,
           author: metadata.author,
           image: imageURL,
-          postId: i,
+          postId: i.toString(),
         };
 
         return item;

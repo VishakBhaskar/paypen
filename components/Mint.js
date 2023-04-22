@@ -30,10 +30,7 @@ export default function Mint(props) {
       <button
         onClick={() => write?.()}
         className="text-white bg-gradient-to-r from-red-800 via-yellow-600 to-yellow-500 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-xl px-8 py-3.5 text-center mr-2 mb-2"
-        // disabled={!write}
-        // onClick={() => write?.()}
       >
-        {/* Mint */}
         Mint
         {isLoading && (
           <div
