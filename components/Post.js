@@ -70,7 +70,7 @@ export default function Post(props) {
         });
       }
     }, 1000);
-  }, [props]);
+  }, [props, router]);
 
   const exit = () => {
     router.push({
