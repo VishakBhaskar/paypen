@@ -2,6 +2,7 @@ import { useContractRead } from "wagmi";
 import { useState } from "react";
 import Read from "./Read";
 const { ethers } = require("ethers");
+import Image from "next/image";
 
 import { useEffect } from "react";
 

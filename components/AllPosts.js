@@ -14,6 +14,54 @@ export default function AllPosts(props) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
+    async function load() {
+      const paypenContract = new ethers.Contract(
+        paypenAddress,
+        Paypen.abi,
+        props.signer
+      );
+
+      let postIds = [];
+
+      for (let i = 0; i < parseInt(data); i++) {
+        postIds[i] = await paypenContract.tokenByIndex(i);
+      }
+
+      console.log("Post ids : ", postIds);
+
+      const items = await Promise.all(
+        postIds.map(async (i) => {
+          const metadataUrl = await paypenContract.tokenURI(i);
+
+          const httpUrl =
+            "https://nftstorage.link/ipfs/" + metadataUrl.trim().slice(7);
+          const res = await fetch(httpUrl);
+          if (!res.ok) {
+            throw new Error(
+              `error fetching image metadata: [${res.status}] ${res.statusText}`
+            );
+          }
+
+          const metadata = await res.json();
+          const imageURL =
+            "https://nftstorage.link/ipfs/" + metadata.image.trim().slice(7);
+
+          let item = {
+            name: metadata.name,
+            description: metadata.description,
+            author: metadata.author,
+            image: imageURL,
+            postId: i.toString(),
+          };
+
+          return item;
+        })
+      );
+
+      setPosts(items);
+
+      console.log("Posts are: ", items);
+    }
     load();
   }, []);
 
@@ -28,55 +76,6 @@ export default function AllPosts(props) {
 
   console.log("Address is : ", props.signer._address);
   console.log("Balance is : ", parseInt(data));
-
-  async function load() {
-    const paypenContract = new ethers.Contract(
-      paypenAddress,
-      Paypen.abi,
-      props.signer
-    );
-
-    let postIds = [];
-
-    for (let i = 0; i < parseInt(data); i++) {
-      postIds[i] = await paypenContract.tokenByIndex(i);
-    }
-
-    console.log("Post ids : ", postIds);
-
-    const items = await Promise.all(
-      postIds.map(async (i) => {
-        const metadataUrl = await paypenContract.tokenURI(i);
-
-        const httpUrl =
-          "https://nftstorage.link/ipfs/" + metadataUrl.trim().slice(7);
-        const res = await fetch(httpUrl);
-        if (!res.ok) {
-          throw new Error(
-            `error fetching image metadata: [${res.status}] ${res.statusText}`
-          );
-        }
-
-        const metadata = await res.json();
-        const imageURL =
-          "https://nftstorage.link/ipfs/" + metadata.image.trim().slice(7);
-
-        let item = {
-          name: metadata.name,
-          description: metadata.description,
-          author: metadata.author,
-          image: imageURL,
-          postId: i.toString(),
-        };
-
-        return item;
-      })
-    );
-
-    setPosts(items);
-
-    console.log("Posts are: ", items);
-  }
 
   return (
     <div className="container my-24 px-6 mx-auto">

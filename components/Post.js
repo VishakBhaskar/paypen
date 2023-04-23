@@ -1,5 +1,6 @@
 import Header from "./Header";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 import { useState } from "react";
 const { ethers } = require("ethers");
@@ -69,7 +70,7 @@ export default function Post(props) {
         });
       }
     }, 1000);
-  }, []);
+  }, [props]);
 
   const exit = () => {
     router.push({
@@ -110,7 +111,7 @@ export default function Post(props) {
         </div>
 
         <section className="mb-20 text-white">
-          <img
+          <Image
             src={props.post.image}
             className="w-full shadow-lg rounded-lg mb-6"
             alt=""
@@ -122,9 +123,9 @@ export default function Post(props) {
                 {" "}
                 Published <u>{props.post.date}</u> by{" "}
               </span>
-              <a href="#!" className="font-medium">
+              <div href="#!" className="font-medium">
                 {props.post.author}
-              </a>
+              </div>
             </div>
           </div>
 
