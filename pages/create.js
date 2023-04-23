@@ -19,7 +19,9 @@ export default function Create() {
   let metadata;
   let currentdate = new Date();
   function onUpload(e) {
-    image = e.target.files[0];
+    file = e.target.files[0];
+    const image = new FormData();
+    image.append("image", file);
   }
 
   //
