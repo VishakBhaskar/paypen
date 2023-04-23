@@ -12,10 +12,14 @@ export default function Mint(props) {
     functionName: "safeMint",
     overrides: {
       from: props.data.signer._address,
-      value: utils.parseEther("1"),
+      // testnet
+      value: utils.parseEther("0.01"),
+      // value: utils.parseEther("1"),
     },
     args: [props.data.signer._address, props.data.metadata.url],
-    chainId: 1337,
+    chainId: 5,
+    // testing
+    // chainId: 1337,
   });
 
   const { write, data, error, isLoading, isError, isSuccess } =

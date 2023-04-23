@@ -14,5 +14,9 @@ module.exports = {
       },
       chainId: 1337,
     },
+    goerli: {
+      url: `${process.env.ALCHEMY_URL}`,
+      accounts: [process.env.PRIV_KEY],
+    },
   },
 };

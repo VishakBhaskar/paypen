@@ -3,10 +3,14 @@ const fs = require("fs");
 const { ethers } = require("hardhat");
 
 async function main() {
-  const ONE_MATIC = ethers.utils.parseEther("1");
+  const DOT_ZERO_ONE_MATIC = ethers.utils.parseEther("0.01");
 
   const PaypenFactory = await hre.ethers.getContractFactory("Paypen");
-  const paypen = await PaypenFactory.deploy("PayPen", "PPN", ONE_MATIC);
+  const paypen = await PaypenFactory.deploy(
+    "PayPen",
+    "PPN",
+    DOT_ZERO_ONE_MATIC
+  );
   console.log("Paypen deployed to:", paypen.address);
 
   fs.writeFileSync(

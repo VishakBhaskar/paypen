@@ -20,13 +20,19 @@ export default function Read(props) {
   useEffect(() => {
     const fetchFlow = async () => {
       sf = await Framework.create({
+        chainId: (await props.provider.getNetwork()).chainId,
         provider: props.provider,
-        resolverAddress: "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E",
-        networkName: "hardhat",
-        dataMode: "WEB3_ONLY",
-        protocolReleaseVersion: "v1",
-        chainId: 1337,
       });
+      //
+      // For local testing
+      // sf = await Framework.create({
+      //   provider: props.provider,
+      //   resolverAddress: "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E",
+      //   networkName: "hardhat",
+      //   dataMode: "WEB3_ONLY",
+      //   protocolReleaseVersion: "v1",
+      //   chainId: 1337,
+      // });
 
       daix = await sf.loadSuperToken(fDAIx);
 

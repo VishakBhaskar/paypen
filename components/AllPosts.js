@@ -19,8 +19,9 @@ export default function AllPosts(props) {
     address: paypenAddress,
     abi: Paypen.abi,
     functionName: "totalSupply",
-
-    chainId: 1337,
+    chainId: 5,
+    // testing
+    // chainId: 1337,
   });
 
   console.log("Address is : ", props.signer._address);
