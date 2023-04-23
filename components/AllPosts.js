@@ -63,7 +63,7 @@ export default function AllPosts(props) {
       console.log("Posts are: ", items);
     }
     load();
-  }, []);
+  }, [data, props]);
 
   const { data } = useContractRead({
     address: paypenAddress,

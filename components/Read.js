@@ -59,7 +59,7 @@ export default function Read(props) {
     };
 
     fetchFlow();
-  }, []);
+  }, [props]);
 
   const view = () => {
     router.push({
