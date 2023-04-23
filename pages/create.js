@@ -20,7 +20,8 @@ export default function Create() {
   let currentdate = new Date();
   function onUpload(e) {
     file = e.target.files[0];
-    image = new Blob([file], { type: "image" });
+    const blob = new Blob([file], { type: "image" });
+    image = new File([blob], "image");
   }
 
   //
