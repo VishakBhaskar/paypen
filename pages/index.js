@@ -1,6 +1,7 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -12,7 +13,7 @@ export default function Home() {
             Join the new wave of publishing <br />
             <span className="text-blue-600">Make every second count</span>
           </h1>
-          <a
+          <Link
             className="inline-block px-7 py-3 mr-2 bg-blue-600 text-white font-medium text-sm leading-snug uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
             data-mdb-ripple="true"
             data-mdb-ripple-color="light"
@@ -20,8 +21,8 @@ export default function Home() {
             role="button"
           >
             Get started
-          </a>
-          <a
+          </Link>
+          <Link
             className="inline-block px-7 py-3 bg-transparent text-blue-600 font-medium text-base leading-snug uppercase rounded hover:text-blue-700 hover:bg-gray-100 focus:bg-gray-100 focus:outline-none focus:ring-0 active:bg-gray-200 transition duration-150 ease-in-out"
             data-mdb-ripple="true"
             data-mdb-ripple-color="light"
@@ -29,7 +30,7 @@ export default function Home() {
             role="button"
           >
             Discover
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -57,7 +58,7 @@ export default function Home() {
                   // width={500}
                 />
 
-                <a href="#!">
+                <Link href="#!">
                   <div
                     className="background-color: rgba(0, 0, 0, 0.4) absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed"
                     // style="background-color: rgba(0, 0, 0, 0.4)"
@@ -68,7 +69,7 @@ export default function Home() {
                       // style="background-color: rgba(251, 251, 251, 0.2)"
                     ></div>
                   </div>
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -188,7 +189,7 @@ export default function Home() {
                     Readers, pay only for what you read
                   </div>
                   <div className="text-gray-500">
-                    Writers, get paid based on reader engagement. It's a win-win
+                    Writers, get paid based on reader engagement. Its a win-win
                     situation
                   </div>
                 </div>
