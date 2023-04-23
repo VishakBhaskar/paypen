@@ -1,7 +1,4 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-// export const YourApp = () => {
-// return <ConnectButton />;
-// };
 
 import { useRouter } from "next/router";
 
@@ -27,12 +24,7 @@ export default function Header() {
           >
             Connect Wallet
           </ConnectButton>
-          {/* <button
-            type="button"
-            className="text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-xl px-8 py-3.5 text-center mr-2 mb-2"
-          >
-            Connect Wallet
-          </button> */}
+
           <button
             data-collapse-toggle="navbar-sticky"
             type="button"

@@ -1,11 +1,9 @@
 import Read from "./Read";
 import { useContractRead } from "wagmi";
 import { useState } from "react";
-import { useRouter } from "next/router";
-const { Framework } = require("@superfluid-finance/sdk-core");
+
 const { ethers } = require("ethers");
-import { hardhat, localhost } from "wagmi/chains";
-// import { useProvider } from "wagmi";
+
 import { useEffect } from "react";
 
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
@@ -13,8 +11,6 @@ import { paypenAddress } from "../config";
 
 export default function AllPosts(props) {
   const [posts, setPosts] = useState([]);
-  const router = useRouter();
-  // const provider = useProvider();
 
   useEffect(() => {
     load();
@@ -84,10 +80,8 @@ export default function AllPosts(props) {
     <div className="container my-24 px-6 mx-auto">
       <section className="mb-32 text-white text-center py-20">
         <h2 className="text-3xl font-bold mb-12 pb-4 text-center">All Posts</h2>
-        {/* {signer && <PostsByUser signer={signer} />} */}
 
         <div className="grid lg:grid-cols-3 gap-6 xl:gap-x-12">
-          {/* // */}
           {posts.map((post, i) => (
             <div key={i} className="mb-6 lg:mb-0">
               <div className="relative block bg-white rounded-lg shadow-lg">
@@ -99,10 +93,7 @@ export default function AllPosts(props) {
                   >
                     <img src={post.image} className="w-full" />
                     <a href="#!">
-                      <div
-                        className="background-color: rgba(251, 251, 251, 0.15) absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 hover:opacity-100 transition duration-300 ease-in-out"
-                        // style=""
-                      ></div>
+                      <div className="background-color: rgba(251, 251, 251, 0.15) absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 hover:opacity-100 transition duration-300 ease-in-out"></div>
                     </a>
                   </div>
                 </div>
@@ -111,34 +102,19 @@ export default function AllPosts(props) {
                     {post.name}
                   </h5>
                   <p className="text-gray-500 mb-4">
-                    <small>
-                      Published by {post.author}
-                      {/* <a href="" className="text-gray-900">
-                          {props.signer._address}
-                        </a> */}
-                    </small>
+                    <small>Published by {post.author}</small>
                   </p>
                   <p className="mb-4 pb-2 text-black">{post.description}</p>
-                  {/* <button onClick={viewPost(post)}> */}
+
                   <div>
                     {
-                      // provider && (
                       <Read
                         post={post}
                         signer={props.signer}
                         provider={props.provider}
                       />
-                      // )
                     }
                   </div>
-                  {/* <button
-                    onClick={() => viewPost(post)}
-                    data-mdb-ripple="true"
-                    data-mdb-ripple-color="light"
-                    className="content-center inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                  >
-                    Read more
-                  </button> */}
                 </div>
               </div>
             </div>

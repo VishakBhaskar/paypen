@@ -5,10 +5,6 @@ import { useRouter } from "next/router";
 import { useSigner } from "wagmi";
 import { useProvider } from "wagmi";
 
-const { Framework } = require("@superfluid-finance/sdk-core");
-import Paypen from "../../artifacts/contracts/Paypen.sol/Paypen.json";
-import { paypenAddress } from "../../config";
-
 export default function Article() {
   const { data: signer } = useSigner();
   const router = useRouter();

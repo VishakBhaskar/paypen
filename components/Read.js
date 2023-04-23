@@ -13,12 +13,10 @@ let authorizeContractOperation;
 
 export default function Read(props) {
   const router = useRouter();
-  // const provider = useProvider();
+
   const [flow, setFlow] = useState(false);
 
   useEffect(() => {
-    // init();
-
     const fetchFlow = async () => {
       sf = await Framework.create({
         provider: props.provider,
@@ -44,7 +42,6 @@ export default function Read(props) {
 
       console.log("flow rate ; ", flowRate);
 
-      // const result = await asyncFunctionToUpdateVariable();
       if (flowRate.flowRate == "1000000000000000") {
         setFlow(true);
       } else {
@@ -53,14 +50,6 @@ export default function Read(props) {
     };
 
     fetchFlow();
-
-    // fetchData();
-
-    // const interval = setInterval(() => {
-    //   fetchData();
-    // }, 1000);
-
-    // return () => clearInterval(interval);
   }, []);
 
   const view = () => {

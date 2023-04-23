@@ -1,12 +1,11 @@
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
-import { hardhat, localhost } from "wagmi/chains";
+
 import { utils } from "ethers";
 
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
 import { paypenAddress } from "../config";
 
 export default function Mint(props) {
-  let onSuccess = false;
   const { config } = usePrepareContractWrite({
     address: paypenAddress,
     abi: Paypen.abi,

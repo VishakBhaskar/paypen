@@ -1,8 +1,6 @@
 import Header from "./Header";
-import Footer from "./Footer";
 import { useRouter } from "next/router";
-import { useSigner } from "wagmi";
-import { useProvider } from "wagmi";
+
 import { useState } from "react";
 const { ethers } = require("ethers");
 import { useEffect } from "react";
@@ -14,27 +12,10 @@ import { paypenAddress } from "../config";
 const fDAIx = "0xF2d68898557cCb2Cf4C10c3Ef2B034b2a69DAD00";
 let daix;
 let sf;
-let authorizeContractOperation;
 
 export default function Post(props) {
-  const { data: signer } = useSigner();
-  const provider = useProvider();
   const router = useRouter();
   const [flow, setFlow] = useState(false);
-  // const post = router.query;
-  // const fDAIx = "0xF2d68898557cCb2Cf4C10c3Ef2B034b2a69DAD00";
-  // let daix;
-  // let sf;
-  // let authorizeContractOperation;
-
-  // const [flow, setFlow] = useState(false);
-  // const [status, setStatus] = useState("Start Reading");
-
-  const paypenContract = new ethers.Contract(
-    paypenAddress,
-    Paypen.abi,
-    props.signer
-  );
 
   useEffect(() => {
     const fetchFlow = async () => {
@@ -49,11 +30,6 @@ export default function Post(props) {
 
       daix = await sf.loadSuperToken(fDAIx);
 
-      // authorizeContractOperation = daix.updateFlowOperatorPermissions({
-      //   flowOperator: paypenAddress,
-      //   permissions: "7", //full control
-      //   flowRateAllowance: "10000000000000000", // ~2500 per month
-      // });
       console.log("post id: ", props.post.postId);
       let flowRate = await daix.getFlow({
         sender: props.signer._address,
@@ -61,7 +37,6 @@ export default function Post(props) {
         providerOrSigner: props.provider,
       });
 
-      // const result = await asyncFunctionToUpdateVariable();
       if (flowRate.flowRate == "1000000000000000") {
         setFlow(true);
       } else {
@@ -71,11 +46,19 @@ export default function Post(props) {
 
     fetchFlow();
 
-    // const interval = setInterval(() => {
-    //   fetchData();
-    // }, 1000);
+    setInterval(async () => {
+      let flowRate = await daix.getFlow({
+        sender: props.signer._address,
+        receiver: props.post.author,
+        providerOrSigner: props.provider,
+      });
 
-    // return () => clearInterval(interval);
+      if (flowRate.flowRate !== "1000000000000000") {
+        router.push({
+          pathname: `/discover`,
+        });
+      }
+    }, 1000);
   }, []);
 
   const exit = () => {
@@ -140,7 +123,6 @@ export default function Post(props) {
           <p>{props.post.description}</p>
         </section>
       </div>
-      {/* <Footer /> */}
     </div>
   );
 }
