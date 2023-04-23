@@ -76,11 +76,7 @@ export default function Home() {
             <div className="grow-0 shrink-0 basis-auto w-full lg:w-7/12 md:px-6">
               <div className="flex mb-12">
                 <div className="shrink-0">
-                  <div
-                    className="background-color: hsl(204, 30%, 20%) p-4 rounded-md shadow-lg"
-                    // style="background-color: hsl(204, 30%, 20%)"
-                  >
-                    {/* <img src="../vercel.svg" alt="next" /> */}
+                  <div className="background-color: hsl(204, 30%, 20%) p-4 rounded-md shadow-lg">
                     <Image
                       src="/clock.svg"
                       className="w-full"

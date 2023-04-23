@@ -2,11 +2,13 @@ import Read from "./Read";
 import { useContractRead } from "wagmi";
 import { useState } from "react";
 const { ethers } = require("ethers");
+import Image from "next/image";
 
 import { useEffect } from "react";
 
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
 import { paypenAddress } from "../config";
+import Link from "next/link";
 
 export default function AllPosts(props) {
   const [posts, setPosts] = useState([]);
@@ -91,10 +93,10 @@ export default function AllPosts(props) {
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
                   >
-                    <img src={post.image} className="w-full" />
-                    <a href="#!">
+                    <Image src={post.image} className="w-full" />
+                    <Link href="#!">
                       <div className="background-color: rgba(251, 251, 251, 0.15) absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 hover:opacity-100 transition duration-300 ease-in-out"></div>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="p-6">

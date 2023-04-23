@@ -1,3 +1,5 @@
+import Link from "next/link";
+import Image from "next/image";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 import { useRouter } from "next/router";
@@ -7,8 +9,8 @@ export default function Header() {
   return (
     <nav className="bg-white px-2 sm:px-4 py-5 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-900 dark:border-gray-900">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
-        <a href="https://flowbite.com/" className="flex items-center">
-          <img
+        <Link href="https://flowbite.com/" className="flex items-center">
+          <Image
             src="/paypen-logo.png"
             className="h-6 mr-3 sm:h-9"
             alt="Paypen Logo"
@@ -16,7 +18,7 @@ export default function Header() {
           <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
             Paypen
           </span>
-        </a>
+        </Link>
         <div className="flex md:order-2">
           <ConnectButton
             type="button"
@@ -53,7 +55,7 @@ export default function Header() {
           id="navbar-sticky"
         >
           <div className="flex flex-col p-4 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-            <a
+            <Link
               href="/"
               className={
                 router.pathname === "/"
@@ -62,8 +64,8 @@ export default function Header() {
               }
             >
               Home
-            </a>
-            <a
+            </Link>
+            <Link
               href="/discover"
               className={
                 router.pathname === "/discover"
@@ -72,8 +74,8 @@ export default function Header() {
               }
             >
               Discover
-            </a>
-            <a
+            </Link>
+            <Link
               href="/create"
               className={
                 router.pathname === "/create"
@@ -82,9 +84,9 @@ export default function Header() {
               }
             >
               Create
-            </a>
+            </Link>
 
-            <a
+            <Link
               href="/myposts"
               className={
                 router.pathname === "/myposts"
@@ -93,7 +95,7 @@ export default function Header() {
               }
             >
               My Posts
-            </a>
+            </Link>
           </div>
         </div>
       </div>
