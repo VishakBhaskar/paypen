@@ -238,7 +238,7 @@ export default function Home() {
                       reader engagement
                     </span>
                   </h1>
-                  <a
+                  <Link
                     className="inline-block px-7 py-3 mr-2 bg-gray-200 text-gray-700 font-medium text-lg leading-snug uppercase rounded shadow-md hover:bg-gray-300 hover:shadow-lg focus:bg-gray-300 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-400 active:shadow-lg transition duration-150 ease-in-out"
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
@@ -246,8 +246,8 @@ export default function Home() {
                     role="button"
                   >
                     Get started
-                  </a>
-                  <a
+                  </Link>
+                  <Link
                     className="inline-block px-7 py-3 bg-transparent text-white font-medium text-lg leading-snug uppercase rounded focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
@@ -255,7 +255,7 @@ export default function Home() {
                     role="button"
                   >
                     Discover
-                  </a>
+                  </Link>
                 </div>
                 <div className="mb-12 lg:mb-0">
                   <Image
