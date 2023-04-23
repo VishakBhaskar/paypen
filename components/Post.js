@@ -53,7 +53,10 @@ export default function Post(props) {
         providerOrSigner: props.provider,
       });
 
-      if (flowRate.flowRate !== "1000000000000000") {
+      if (
+        props.signer._address !== props.post.author &&
+        flowRate.flowRate !== "1000000000000000"
+      ) {
         router.push({
           pathname: `/discover`,
         });

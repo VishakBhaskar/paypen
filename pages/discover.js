@@ -1,6 +1,5 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import PostsByUser from "../components/PostsByUser";
 import AllPosts from "../components/AllPosts";
 import { useSigner } from "wagmi";
 import { useProvider } from "wagmi";

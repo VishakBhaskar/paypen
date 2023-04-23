@@ -1,7 +1,6 @@
 import Read from "./Read";
 import { useContractRead } from "wagmi";
 import { useState } from "react";
-
 const { ethers } = require("ethers");
 
 import { useEffect } from "react";
@@ -105,7 +104,6 @@ export default function AllPosts(props) {
                     <small>Published by {post.author}</small>
                   </p>
                   <p className="mb-4 pb-2 text-black">{post.description}</p>
-
                   <div>
                     {
                       <Read

@@ -1,7 +1,6 @@
 import { useContractRead } from "wagmi";
 import { useState } from "react";
-
-import Link from "next/link";
+import Read from "./Read";
 const { ethers } = require("ethers");
 
 import { useEffect } from "react";
@@ -60,10 +59,11 @@ export default function PostsByUser(props) {
           "https://nftstorage.link/ipfs/" + metadata.image.trim().slice(7);
 
         let item = {
+          author: props.signer._address,
           name: metadata.name,
           description: metadata.description,
           image: imageURL,
-          postId: i,
+          postId: i.toString(),
         };
 
         return item;
@@ -104,20 +104,14 @@ export default function PostsByUser(props) {
                     <small>Published by you</small>
                   </p>
                   <p className="mb-4 pb-2 text-black">{post.description}</p>
-
-                  <div
-                    data-mdb-ripple="true"
-                    data-mdb-ripple-color="light"
-                    className="content-center inline-block px-6 py-2.5 bg-blue-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-800 active:shadow-lg transition duration-150 ease-in-out"
-                  >
-                    <Link
-                      href={{
-                        pathname: `/posts/${post.image.trim().slice(29, 79)}`,
-                        query: post, // the data
-                      }}
-                    >
-                      Read more
-                    </Link>
+                  <div>
+                    {
+                      <Read
+                        post={post}
+                        signer={props.signer}
+                        provider={props.provider}
+                      />
+                    }
                   </div>
                 </div>
               </div>

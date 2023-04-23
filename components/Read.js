@@ -10,6 +10,7 @@ const fDAIx = "0xF2d68898557cCb2Cf4C10c3Ef2B034b2a69DAD00";
 let daix;
 let sf;
 let authorizeContractOperation;
+let flowRate;
 
 export default function Read(props) {
   const router = useRouter();
@@ -29,23 +30,25 @@ export default function Read(props) {
 
       daix = await sf.loadSuperToken(fDAIx);
 
-      authorizeContractOperation = daix.updateFlowOperatorPermissions({
-        flowOperator: paypenAddress,
-        permissions: "7", //full control
-        flowRateAllowance: "10000000000000000", // ~2500 per month
-      });
-      let flowRate = await daix.getFlow({
-        sender: props.signer._address,
-        receiver: props.post.author,
-        providerOrSigner: props.signer,
-      });
+      if (props.signer._address !== props.post.author) {
+        authorizeContractOperation = daix.updateFlowOperatorPermissions({
+          flowOperator: paypenAddress,
+          permissions: "7", //full control
+          flowRateAllowance: "10000000000000000", // ~2500 per month
+        });
+        flowRate = await daix.getFlow({
+          sender: props.signer._address,
+          receiver: props.post.author,
+          providerOrSigner: props.signer,
+        });
 
-      console.log("flow rate ; ", flowRate);
+        console.log("flow rate ; ", flowRate);
 
-      if (flowRate.flowRate == "1000000000000000") {
-        setFlow(true);
-      } else {
-        setFlow(false);
+        if (flowRate.flowRate == "1000000000000000") {
+          setFlow(true);
+        } else {
+          setFlow(false);
+        }
       }
     };
 
