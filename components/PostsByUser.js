@@ -20,7 +20,9 @@ export default function PostsByUser(props) {
 
       let postIds = [];
 
-      for (let i = 0; i < parseInt(props.data); i++) {
+      let bal = await paypenContract.balanceOf(props.signer._address);
+
+      for (let i = 0; i < parseInt(bal); i++) {
         postIds[i] = await paypenContract.tokenOfOwnerByIndex(
           props.signer._address,
           i
@@ -63,7 +65,6 @@ export default function PostsByUser(props) {
   }, [props]);
 
   console.log("Address is : ", props.signer._address);
-  console.log("Balance is : ", parseInt(data));
 
   return (
     <div className="container my-24 px-6 mx-auto">

@@ -12,16 +12,6 @@ export default function MyPosts() {
   const { signer } = useSigner();
   const provider = useProvider();
 
-  const { data } = useContractRead({
-    address: paypenAddress,
-    abi: Paypen.abi,
-    functionName: "balanceOf",
-    args: [signer._address],
-    chainId: 80001,
-    // testing
-    // chainId: 1337,
-  });
-
   return (
     <div className="bg-gray-900">
       <Header className="bg-gray-900" />
