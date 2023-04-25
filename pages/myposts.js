@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import PostsByUser from "../components/PostsByUser";
 import { useSigner } from "wagmi";
 import { useProvider } from "wagmi";
+import { useContractRead } from "wagmi";
 
 export default function MyPosts() {
   const { data: signer } = useSigner();
