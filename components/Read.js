@@ -6,7 +6,7 @@ import { useState } from "react";
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
 import { paypenAddress } from "../config";
 
-const fDAIx = "0xF2d68898557cCb2Cf4C10c3Ef2B034b2a69DAD00";
+const fDAIx = "0x5D8B4C2554aeB7e86F387B4d6c00Ac33499Ed01f";
 let daix;
 let sf;
 let authorizeContractOperation;

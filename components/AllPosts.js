@@ -69,7 +69,7 @@ export default function AllPosts(props) {
     address: paypenAddress,
     abi: Paypen.abi,
     functionName: "totalSupply",
-    chainId: 5,
+    chainId: 80001,
     // testing
     // chainId: 1337,
   });

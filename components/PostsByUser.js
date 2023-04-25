@@ -70,7 +70,7 @@ export default function PostsByUser(props) {
     abi: Paypen.abi,
     functionName: "balanceOf",
     args: [props.signer._address],
-    chainId: 5,
+    chainId: 80001,
     // testing
     // chainId: 1337,
   });

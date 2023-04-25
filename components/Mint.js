@@ -17,7 +17,7 @@ export default function Mint(props) {
       // value: utils.parseEther("1"),
     },
     args: [props.data.signer._address, props.data.metadata.url],
-    chainId: 5,
+    chainId: 80001,
     // testing
     // chainId: 1337,
   });
