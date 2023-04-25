@@ -23,7 +23,7 @@ export default function PostsByUser(props) {
 
       let postIds = [];
 
-      for (let i = 0; i < parseInt(data); i++) {
+      for (let i = 0; i < parseInt(props.data); i++) {
         postIds[i] = await paypenContract.tokenOfOwnerByIndex(
           props.signer._address,
           i
@@ -63,17 +63,7 @@ export default function PostsByUser(props) {
       console.log("Posts are: ", items);
     }
     load();
-  }, [props, data]);
-
-  const { data } = useContractRead({
-    address: paypenAddress,
-    abi: Paypen.abi,
-    functionName: "balanceOf",
-    args: [props.signer._address],
-    chainId: 80001,
-    // testing
-    // chainId: 1337,
-  });
+  }, [props]);
 
   console.log("Address is : ", props.signer._address);
   console.log("Balance is : ", parseInt(data));
