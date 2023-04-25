@@ -15,7 +15,7 @@ export default function MyPosts() {
     address: paypenAddress,
     abi: Paypen.abi,
     functionName: "balanceOf",
-    args: [props.signer._address],
+    args: [signer._address],
     chainId: 80001,
     // testing
     // chainId: 1337,
