@@ -15,9 +15,7 @@ export default function MyPosts() {
   return (
     <div className="bg-gray-900">
       <Header className="bg-gray-900" />
-      {signer && (
-        <PostsByUser signer={signer} provider={provider} data={data} />
-      )}
+      {signer && <PostsByUser signer={signer} provider={provider} />}
       <Footer />
     </div>
   );
