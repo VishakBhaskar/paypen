@@ -9,8 +9,9 @@ import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
 import { paypenAddress } from "../config";
 
 export default function MyPosts() {
-  const { data: signer } = useSigner();
+  const { signer } = useSigner();
   const provider = useProvider();
+
   const { data } = useContractRead({
     address: paypenAddress,
     abi: Paypen.abi,
