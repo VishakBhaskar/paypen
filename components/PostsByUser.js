@@ -7,6 +7,9 @@ import { useEffect } from "react";
 
 import Link from "next/link";
 
+import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
+import { paypenAddress } from "../config";
+
 export default function PostsByUser(props) {
   const [posts, setPosts] = useState([]);
 
