@@ -5,8 +5,6 @@ import Image from "next/image";
 
 import { useEffect } from "react";
 
-import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
-import { paypenAddress } from "../config";
 import Link from "next/link";
 
 export default function PostsByUser(props) {

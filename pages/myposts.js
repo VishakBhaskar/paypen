@@ -5,6 +5,9 @@ import { useSigner } from "wagmi";
 import { useProvider } from "wagmi";
 import { useContractRead } from "wagmi";
 
+import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
+import { paypenAddress } from "../config";
+
 export default function MyPosts() {
   const { data: signer } = useSigner();
   const provider = useProvider();
