@@ -14,63 +14,62 @@ export default function PostsByUser(props) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    async function load() {
-      try {
-        const paypenContract = new ethers.Contract(
-          paypenAddress,
-          Paypen.abi,
-          props.signer
-        );
-
-        let postIds = [];
-
-        let bal = await paypenContract.balanceOf(props.signer._address);
-
-        for (let i = 0; i < parseInt(bal); i++) {
-          postIds[i] = await paypenContract.tokenOfOwnerByIndex(
-            props.signer._address,
-            i
-          );
-        }
-        const items = await Promise.all(
-          postIds.map(async (i) => {
-            const metadataUrl = await paypenContract.tokenURI(i);
-
-            const httpUrl =
-              "https://nftstorage.link/ipfs/" + metadataUrl.trim().slice(7);
-            const res = await fetch(httpUrl);
-            if (!res.ok) {
-              throw new Error(
-                `error fetching image metadata: [${res.status}] ${res.statusText}`
-              );
-            }
-
-            const metadata = await res.json();
-            const imageURL =
-              "https://nftstorage.link/ipfs/" + metadata.image.trim().slice(7);
-
-            let item = {
-              author: props.signer._address,
-              name: metadata.name,
-              description: metadata.description,
-              image: imageURL,
-              postId: i.toString(),
-            };
-
-            return item;
-          })
-        );
-
-        setPosts(items);
-
-        console.log("Posts are: ", items);
-      } catch (error) {
-        console.error(error);
-      }
-    }
     load();
-  }, [props]);
+  }, []);
+  async function load() {
+    try {
+      const paypenContract = new ethers.Contract(
+        paypenAddress,
+        Paypen.abi,
+        props.signer
+      );
 
+      let postIds = [];
+
+      let bal = await paypenContract.balanceOf(props.signer._address);
+
+      for (let i = 0; i < parseInt(bal); i++) {
+        postIds[i] = await paypenContract.tokenOfOwnerByIndex(
+          props.signer._address,
+          i
+        );
+      }
+      const items = await Promise.all(
+        postIds.map(async (i) => {
+          const metadataUrl = await paypenContract.tokenURI(i);
+
+          const httpUrl =
+            "https://nftstorage.link/ipfs/" + metadataUrl.trim().slice(7);
+          const res = await fetch(httpUrl);
+          if (!res.ok) {
+            throw new Error(
+              `error fetching image metadata: [${res.status}] ${res.statusText}`
+            );
+          }
+
+          const metadata = await res.json();
+          const imageURL =
+            "https://nftstorage.link/ipfs/" + metadata.image.trim().slice(7);
+
+          let item = {
+            author: props.signer._address,
+            name: metadata.name,
+            description: metadata.description,
+            image: imageURL,
+            postId: i.toString(),
+          };
+
+          return item;
+        })
+      );
+
+      setPosts(items);
+
+      console.log("Posts are: ", items);
+    } catch (error) {
+      console.error(error);
+    }
+  }
   console.log("Address is : ", props.signer._address);
 
   return (
