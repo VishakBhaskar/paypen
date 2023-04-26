@@ -9,12 +9,15 @@ export default function Header() {
   return (
     <nav className="bg-white px-2 sm:px-4 py-5 dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-900 dark:border-gray-900">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
-        <Link href="https://flowbite.com/" className="flex items-center">
+        <Link href="/" className="flex items-center">
           <Image
             src="/paypen-logo.png"
-            className="h-6 mr-3 sm:h-9"
+            className="h-6 mr-3 sm:h-9 w-full"
             alt="Paypen Logo"
+            width={400}
+            height={400}
           />
+
           <span className="self-center text-4xl font-semibold whitespace-nowrap dark:text-white">
             Paypen
           </span>

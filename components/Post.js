@@ -1,6 +1,5 @@
 import Header from "./Header";
 import { useRouter } from "next/router";
-import Image from "next/image";
 
 import { useState } from "react";
 const { ethers } = require("ethers");
@@ -10,14 +9,12 @@ const { Framework } = require("@superfluid-finance/sdk-core");
 import Paypen from "../artifacts/contracts/Paypen.sol/Paypen.json";
 import { paypenAddress } from "../config";
 
-const fDAIx = "0x5D8B4C2554aeB7e86F387B4d6c00Ac33499Ed01f";
-let daix;
-let sf;
-
 export default function Post(props) {
   const router = useRouter();
   const [flow, setFlow] = useState(false);
-
+  const fDAIx = "0x5D8B4C2554aeB7e86F387B4d6c00Ac33499Ed01f";
+  let daix;
+  let sf;
   useEffect(() => {
     const fetchFlow = async () => {
       sf = await Framework.create({
@@ -29,7 +26,7 @@ export default function Post(props) {
 
       // sf = await Framework.create({
       //   provider: props.provider,
-      //   resolverAddress: "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E",
+      //   resolverAddress: "0x8C54C83FbDe3C59e59dd6E324531FB93d4F504d3",
       //   networkName: "hardhat",
       //   dataMode: "WEB3_ONLY",
       //   protocolReleaseVersion: "v1",
@@ -89,9 +86,10 @@ export default function Post(props) {
     } else if (!flow) {
       exit();
     } else {
-      await paypenContract
+      const waiter = await paypenContract
         .connect(props.signer)
         .stop(props.post.postId, daix.address);
+      await waiter.wait(1);
       exit();
     }
   }
@@ -111,7 +109,7 @@ export default function Post(props) {
         </div>
 
         <section className="mb-20 text-white">
-          <Image
+          <img
             src={props.post.image}
             className="w-full shadow-lg rounded-lg mb-6"
             alt=""

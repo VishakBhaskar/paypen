@@ -1,15 +1,10 @@
-import Image from "next/image";
 import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="p-4 bg-white rounded-lg shadow md:px-6 md:py-8 dark:bg-gray-900">
       <div className="sm:flex sm:items-center sm:justify-between">
         <Link href="" className="flex items-center mb-4 sm:mb-0">
-          <Image
-            src="/paypen-logo.png"
-            className="h-8 mr-3"
-            alt="PayPen Logo"
-          />
+          <img src="/paypen-logo.png" className="h-8 mr-3" alt="PayPen Logo" />
           <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
             Paypen
           </span>

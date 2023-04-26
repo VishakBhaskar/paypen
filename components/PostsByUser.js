@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Read from "./Read";
 const { ethers } = require("ethers");
-import Image from "next/image";
-
+import { useContractRead } from "wagmi";
 import { useEffect } from "react";
 
 import Link from "next/link";
@@ -13,64 +12,67 @@ import { paypenAddress } from "../config";
 export default function PostsByUser(props) {
   const [posts, setPosts] = useState([]);
 
+  const { data } = useContractRead({
+    address: paypenAddress,
+    abi: Paypen.abi,
+    functionName: "balanceOf",
+    args: [props.signer._address],
+    chainId: 80001,
+    // testing
+    // chainId: 1337,
+  });
+
   useEffect(() => {
     load();
   }, []);
   async function load() {
-    try {
-      const paypenContract = new ethers.Contract(
-        paypenAddress,
-        Paypen.abi,
-        props.signer
+    const paypenContract = new ethers.Contract(
+      paypenAddress,
+      Paypen.abi,
+      props.signer
+    );
+
+    let postIds = [];
+
+    for (let i = 0; i < parseInt(data); i++) {
+      postIds[i] = await paypenContract.tokenOfOwnerByIndex(
+        props.signer._address,
+        i
       );
-
-      let postIds = [];
-
-      let bal = await paypenContract.balanceOf(props.signer._address);
-
-      for (let i = 0; i < parseInt(bal); i++) {
-        postIds[i] = await paypenContract.tokenOfOwnerByIndex(
-          props.signer._address,
-          i
-        );
-      }
-      const items = await Promise.all(
-        postIds.map(async (i) => {
-          const metadataUrl = await paypenContract.tokenURI(i);
-
-          const httpUrl =
-            "https://nftstorage.link/ipfs/" + metadataUrl.trim().slice(7);
-          const res = await fetch(httpUrl);
-          if (!res.ok) {
-            throw new Error(
-              `error fetching image metadata: [${res.status}] ${res.statusText}`
-            );
-          }
-
-          const metadata = await res.json();
-          const imageURL =
-            "https://nftstorage.link/ipfs/" + metadata.image.trim().slice(7);
-
-          let item = {
-            author: props.signer._address,
-            name: metadata.name,
-            description: metadata.description,
-            image: imageURL,
-            postId: i.toString(),
-          };
-
-          return item;
-        })
-      );
-
-      setPosts(items);
-
-      console.log("Posts are: ", items);
-    } catch (error) {
-      console.error(error);
     }
+    const items = await Promise.all(
+      postIds.map(async (i) => {
+        const metadataUrl = await paypenContract.tokenURI(i);
+
+        const httpUrl =
+          "https://nftstorage.link/ipfs/" + metadataUrl.trim().slice(7);
+        const res = await fetch(httpUrl);
+        if (!res.ok) {
+          throw new Error(
+            `error fetching image metadata: [${res.status}] ${res.statusText}`
+          );
+        }
+
+        const metadata = await res.json();
+        const imageURL =
+          "https://nftstorage.link/ipfs/" + metadata.image.trim().slice(7);
+
+        let item = {
+          author: props.signer._address,
+          name: metadata.name,
+          description: metadata.description,
+          image: imageURL,
+          postId: i.toString(),
+        };
+
+        return item;
+      })
+    );
+
+    setPosts(items);
+
+    console.log("Posts are: ", items);
   }
-  console.log("Address is : ", props.signer._address);
 
   return (
     <div className="container my-24 px-6 mx-auto">
@@ -87,7 +89,13 @@ export default function PostsByUser(props) {
                     data-mdb-ripple="true"
                     data-mdb-ripple-color="light"
                   >
-                    <Image src={post.image} className="w-full" />
+                    <img
+                      src={post.image}
+                      alt="Post Image"
+                      width={400}
+                      height={400}
+                      className="w-full"
+                    />
                     <Link href="#!">
                       <div className="background-color: rgba(251, 251, 251, 0.15) absolute top-0 right-0 bottom-0 left-0 w-full h-full overflow-hidden bg-fixed opacity-0 hover:opacity-100 transition duration-300 ease-in-out"></div>
                     </Link>

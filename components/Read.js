@@ -27,7 +27,7 @@ export default function Read(props) {
       // For local testing
       // sf = await Framework.create({
       //   provider: props.provider,
-      //   resolverAddress: "0x3710AB3fDE2B61736B8BB0CE845D6c61F667a78E",
+      //   resolverAddress: "0x8C54C83FbDe3C59e59dd6E324531FB93d4F504d3",
       //   networkName: "hardhat",
       //   dataMode: "WEB3_ONLY",
       //   protocolReleaseVersion: "v1",
@@ -80,9 +80,10 @@ export default function Read(props) {
       view();
     } else {
       await authorizeContractOperation.exec(props.signer);
-      await paypenContract
+      const waiter = await paypenContract
         .connect(props.signer)
         .read(props.post.postId, daix.address);
+      await waiter.wait(1);
       view();
     }
   }

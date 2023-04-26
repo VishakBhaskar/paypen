@@ -76,7 +76,7 @@ export default function Home() {
             <div className="grow-0 shrink-0 basis-auto w-full lg:w-7/12 md:px-6">
               <div className="flex mb-12">
                 <div className="shrink-0">
-                  <div className="background-color: hsl(204, 30%, 20%) p-4 rounded-md shadow-lg">
+                  <div className="background-color: hsl(204, 30%, 20%) p-4 rounded-md shadow-lg ">
                     <Image
                       src="/clock.svg"
                       className="w-full"
@@ -253,7 +253,7 @@ export default function Home() {
                     Discover
                   </Link>
                 </div>
-                <div className="mb-12 lg:mb-0">
+                <div className="mb-12 lg:mb-0 ">
                   <Image
                     src="/goldcoins.png"
                     className="w-full"

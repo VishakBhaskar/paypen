@@ -5,7 +5,7 @@ import { useSigner } from "wagmi";
 import { useProvider } from "wagmi";
 
 export default function MyPosts() {
-  const { signer } = useSigner();
+  const { data: signer } = useSigner();
   const provider = useProvider();
 
   return (
