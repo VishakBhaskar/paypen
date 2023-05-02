@@ -52,17 +52,19 @@ export default function Post(props) {
     fetchFlow();
 
     setInterval(async () => {
-      let flowRate = await props.daix.getFlow({
-        sender: props.signer._address,
-        receiver: props.post.author,
-        providerOrSigner: props.provider,
-      });
+      if (props.loading == false) {
+        let flowRate = await props.daix.getFlow({
+          sender: props.signer._address,
+          receiver: props.post.author,
+          providerOrSigner: props.provider,
+        });
 
-      if (
-        props.signer._address !== props.post.author &&
-        flowRate.flowRate !== "1000000000000000"
-      ) {
-        exit();
+        if (
+          props.signer._address !== props.post.author &&
+          flowRate.flowRate !== "1000000000000000"
+        ) {
+          exit();
+        }
       }
     }, 1000);
   }, [props, router]);

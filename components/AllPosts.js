@@ -22,7 +22,7 @@ export default function AllPosts(props) {
 
       let postIds = [];
 
-      for (let i = 0; i < parseInt(data); i++) {
+      for (let i = 0; i < parseInt(props.data); i++) {
         postIds[i] = await paypenContract.tokenByIndex(i);
       }
 
@@ -62,19 +62,10 @@ export default function AllPosts(props) {
       console.log("Posts are: ", items);
     }
     load();
-  }, []);
-
-  const { data } = useContractRead({
-    address: paypenAddress,
-    abi: Paypen.abi,
-    functionName: "totalSupply",
-    chainId: 80001,
-    // testing
-    // chainId: 1337,
-  });
+  }, [props]);
 
   console.log("Address is : ", props.signer._address);
-  console.log("Balance is : ", parseInt(data));
+  console.log("Balance is : ", parseInt(props.data));
 
   return (
     <div className="container my-24 px-6 mx-auto">

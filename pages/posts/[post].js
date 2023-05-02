@@ -20,15 +20,18 @@ export default function Article() {
   useEffect(() => {
     const fDAIx = "0x5D8B4C2554aeB7e86F387B4d6c00Ac33499Ed01f";
     const fetchToken = async () => {
-      sf = await Framework.create({
-        chainId: (await provider.getNetwork()).chainId,
-        provider: provider,
-      });
+      try {
+        sf = await Framework.create({
+          chainId: (await provider.getNetwork()).chainId,
+          provider: provider,
+        });
 
-      daix = await sf.loadSuperToken(fDAIx);
-
-      setDaix(daix);
-      setLoading(false);
+        const daixToken = await sf.loadSuperToken(fDAIx);
+        setDaix(daixToken);
+        setLoading(false);
+      } catch (error) {
+        console.log("Error initialising: ", error);
+      }
     };
 
     fetchToken();
