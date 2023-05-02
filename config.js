@@ -1,3 +1,1 @@
-
-    export const paypenAddress = "0x8DA0E84C99908a8cf1aBAb0293f8cd7421023B92"
-  
+export const paypenAddress = "0x3bc6f510f5a2978b92030ff01167193c6fb0b5b9";
