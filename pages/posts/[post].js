@@ -20,18 +20,18 @@ export default function Article() {
   useEffect(() => {
     const fDAIx = "0x5D8B4C2554aeB7e86F387B4d6c00Ac33499Ed01f";
     const fetchToken = async () => {
-      try {
-        sf = await Framework.create({
-          chainId: (await provider.getNetwork()).chainId,
-          provider: provider,
-        });
+      // try {
+      sf = await Framework.create({
+        chainId: (await provider.getNetwork()).chainId,
+        provider: provider,
+      });
 
-        const daixToken = await sf.loadSuperToken(fDAIx);
-        setDaix(daixToken);
-        setLoading(false);
-      } catch (error) {
-        console.log("Error initialising: ", error);
-      }
+      const daixToken = await sf.loadSuperToken(fDAIx);
+      setDaix(daixToken);
+      setLoading(false);
+      // } catch (error) {
+      //   console.log("Error initialising: ", error);
+      // }
     };
 
     fetchToken();
@@ -41,7 +41,7 @@ export default function Article() {
     <div className="bg-gray-900">
       <Header className="bg-gray-900" />
 
-      {signer && (
+      {signer && daix && (
         <Post
           signer={signer}
           post={post}
